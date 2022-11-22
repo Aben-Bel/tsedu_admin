@@ -1,0 +1,1 @@
+{"version":"1.0.0","name":"clean_validator","dependencies":{"body-parser":{"version":"1.19.0"},"dotenv":{"version":"8.0.0"},"express":{"version":"4.17.1"},"joi":{"version":"14.3.1"},"knex":{"version":"2.3.0"},"mongoose":{"version":"5.13.15"},"pg":{"version":"7.12.0"},"validate.js":{"version":"0.13.1"},"yargs-parser":{"version":"13.1.2"}}}
