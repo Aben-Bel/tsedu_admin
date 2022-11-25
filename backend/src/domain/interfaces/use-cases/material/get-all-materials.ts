@@ -1,5 +1,5 @@
-import { Material } from "../../../entities/material";
+import { Material } from '../../../entities/material/material';
 
-export interface GetAllMaterialsUseCase{
-    execute():Promise<Material[]>;
+export interface GetAllMaterialsUseCase {
+  execute(): Promise<Material[]>;
 }

@@ -1,13 +1,13 @@
-import { MaterialDataSource } from '../../../domain/interfaces/data-sources/material-data-source';
+import { MaterialDataSource } from '../../../domain/interfaces/data-sources/material/material-data-source';
 import { DatabaseWrapper } from '../../interfaces/database';
-import { Material } from '../../../domain/entities/material';
+import { Material } from '../../../domain/entities/material/material';
 
 export class MemoryMaterialDataSource implements MaterialDataSource {
   private database: DatabaseWrapper;
   constructor(database: DatabaseWrapper) {
     this.database = database;
   }
-  
+
   async getOne(id: String): Promise<Material> {
     const result = await this.database.getOne(id);
     return result;

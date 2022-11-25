@@ -1,5 +1,5 @@
 import { Material } from '../entities/material';
-import { MaterialRepository } from '../interfaces/repositories/material-interface-repository';
+import { MaterialRepository } from '../interfaces/repositories/material/material-interface-repository';
 import { DeleteMaterialUseCase } from '../interfaces/use-cases/material/delete-one-material';
 
 export class DeleteOneMaterialUseCaseImpl implements DeleteMaterialUseCase {

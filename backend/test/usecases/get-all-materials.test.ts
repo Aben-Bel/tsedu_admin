@@ -1,5 +1,5 @@
-import { Material } from '../../src/domain/entities/material';
-import { MaterialRepository } from '../../src/domain/interfaces/repositories/material-interface-repository';
+import { Material } from '../../src/domain/entities/material/material';
+import { MaterialRepository } from '../../src/domain/interfaces/repositories/material/material-interface-repository';
 import { GetAllMaterials } from '../../src/domain/use-cases/material-get-all-materials';
 
 describe('Get All Materials Use Case', () => {

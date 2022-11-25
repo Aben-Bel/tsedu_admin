@@ -1,6 +1,6 @@
-import { Material } from '../../src/domain/entities/material';
-import { MaterialRepository } from '../../src/domain/interfaces/repositories/material-interface-repository';
-import { CreateMaterial } from '../../src/domain/use-cases/material-create-material';
+import { Material } from '../../src/domain/entities/material/material';
+import { MaterialRepository } from '../../src/domain/interfaces/repositories/material/material-interface-repository';
+import { CreateMaterial } from '../../src/domain/use-cases/material/material-create-material';
 
 describe('Create Material Use Case', () => {
   class MockMaterialRepository implements MaterialRepository {

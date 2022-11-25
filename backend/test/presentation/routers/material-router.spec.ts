@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { Material } from '../../../src/domain/entities/material';
+import { Material } from '../../../src/domain/entities/material/material';
 import { CreateMaterialUseCase } from '../../../src/domain/interfaces/use-cases/material/create-material';
 import { DeleteMaterialUseCase } from '../../../src/domain/interfaces/use-cases/material/delete-one-material';
 import { GetAllMaterialsUseCase } from '../../../src/domain/interfaces/use-cases/material/get-all-materials';

@@ -1,4 +1,4 @@
-import { Material } from '../../entities/material';
+import { Material } from '../../../entities/material/material';
 export interface MaterialRepository {
   createMaterial(material: Material): Promise<boolean>;
   getMaterials(): Promise<Material[]>;

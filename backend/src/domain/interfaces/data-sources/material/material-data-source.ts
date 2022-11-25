@@ -1,4 +1,4 @@
-import { Material } from '../../entities/material';
+import { Material } from '../../../entities/material/material';
 export interface MaterialDataSource {
   getOne(id: String): Promise<Material>;
   updateOne(id: String, data: Material): Promise<Material>;

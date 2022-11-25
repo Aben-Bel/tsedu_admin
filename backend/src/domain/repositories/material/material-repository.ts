@@ -1,6 +1,6 @@
-import { Material } from '../entities/material';
-import { MaterialDataSource } from '../interfaces/data-sources/material-data-source';
-import { MaterialRepository } from '../interfaces/repositories/material-interface-repository';
+import { Material } from '../../entities/material/material';
+import { MaterialDataSource } from '../../interfaces/data-sources/material/material-data-source';
+import { MaterialRepository } from '../../interfaces/repositories/material/material-interface-repository';
 
 export class MaterialRepositoryImpl implements MaterialRepository {
   materialDataSource: MaterialDataSource;
