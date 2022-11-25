@@ -18,6 +18,9 @@ const material_get_all_materials_1 = require("./domain/use-cases/material-get-al
 const material_repository_1 = require("./domain/repositories/material-repository");
 const material_create_material_1 = require("./domain/use-cases/material-create-material");
 const memory_material_data_source_1 = require("./db/data-sources/memory/memory-material-data-source");
+const material_update_material_1 = require("./domain/use-cases/material-update-material");
+const material_get_one_material_1 = require("./domain/use-cases/material-get-one-material");
+const material_delete_material_1 = require("./domain/use-cases/material-delete-material");
 class DB {
     constructor() {
         this.materials = [
@@ -34,6 +37,15 @@ class DB {
             }
         ];
     }
+    getOne(id) {
+        throw new Error('Method not implemented.');
+    }
+    updateOne(id, data) {
+        throw new Error('Method not implemented.');
+    }
+    delete(id) {
+        throw new Error('Method not implemented.');
+    }
     find(query) {
         return Promise.resolve(this.materials);
     }
@@ -44,7 +56,7 @@ class DB {
 }
 (() => __awaiter(void 0, void 0, void 0, function* () {
     const materialDB = new DB();
-    const materialMiddleWare = (0, material_router_1.default)(new material_get_all_materials_1.GetAllMaterials(new material_repository_1.MaterialRepositoryImpl(new memory_material_data_source_1.MemoryMaterialDataSource(materialDB))), new material_create_material_1.CreateMaterial(new material_repository_1.MaterialRepositoryImpl(new memory_material_data_source_1.MemoryMaterialDataSource(materialDB))));
+    const materialMiddleWare = (0, material_router_1.default)(new material_get_all_materials_1.GetAllMaterials(new material_repository_1.MaterialRepositoryImpl(new memory_material_data_source_1.MemoryMaterialDataSource(materialDB))), new material_create_material_1.CreateMaterial(new material_repository_1.MaterialRepositoryImpl(new memory_material_data_source_1.MemoryMaterialDataSource(materialDB))), new material_update_material_1.UpdateMaterialUseCaseImpl(new material_repository_1.MaterialRepositoryImpl(new memory_material_data_source_1.MemoryMaterialDataSource(materialDB))), new material_get_one_material_1.GetOneMaterialUseCaseImpl(new material_repository_1.MaterialRepositoryImpl(new memory_material_data_source_1.MemoryMaterialDataSource(materialDB))), new material_delete_material_1.DeleteOneMaterialUseCaseImpl(new material_repository_1.MaterialRepositoryImpl(new memory_material_data_source_1.MemoryMaterialDataSource(materialDB))));
     server_1.default.use('/material', materialMiddleWare);
     server_1.default.listen(3000, () => console.log('Running Server'));
 }))();

@@ -28,10 +28,13 @@ class MockCreateMaterialUseCase {
 describe('Material Router', () => {
     let mockCreateMaterialUseCase;
     let mockGetAllMaterialsUseCase;
+    let mockUpdateAllMaterialUseCase;
+    let mockGetOneMaterialUseCase;
+    let mockDeleteOneMaterialUseCase;
     beforeAll(() => {
         mockCreateMaterialUseCase = new MockCreateMaterialUseCase();
         mockGetAllMaterialsUseCase = new MockGetAllMaterialsUseCase();
-        server_1.default.use('/material', (0, material_router_1.default)(mockGetAllMaterialsUseCase, mockCreateMaterialUseCase));
+        server_1.default.use('/material', (0, material_router_1.default)(mockGetAllMaterialsUseCase, mockCreateMaterialUseCase, mockUpdateAllMaterialUseCase, mockGetOneMaterialUseCase, mockDeleteOneMaterialUseCase));
     });
     beforeEach(() => {
         jest.clearAllMocks();
@@ -99,8 +102,10 @@ describe('Material Router', () => {
                 audio: undefined,
                 video: undefined
             };
-            jest.spyOn(mockCreateMaterialUseCase, "execute").mockImplementation(() => Promise.reject(Error()));
-            const response = yield (0, supertest_1.default)(server_1.default).post("/material").send(InputData);
+            jest
+                .spyOn(mockCreateMaterialUseCase, 'execute')
+                .mockImplementation(() => Promise.reject(Error()));
+            const response = yield (0, supertest_1.default)(server_1.default).post('/material').send(InputData);
             expect(response.status).toBe(500);
         }));
     });

@@ -14,6 +14,23 @@ class MaterialRepositoryImpl {
     constructor(materialDataSource) {
         this.materialDataSource = materialDataSource;
     }
+    deleteMaterial(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.materialDataSource.deleteOne(id);
+        });
+    }
+    updateMaterial(id, data) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const result = yield this.materialDataSource.updateOne(id, data);
+            return result;
+        });
+    }
+    getMaterial(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const result = yield this.materialDataSource.getOne(id);
+            return result;
+        });
+    }
     createMaterial(material) {
         return __awaiter(this, void 0, void 0, function* () {
             const result = yield this.materialDataSource.create(material);

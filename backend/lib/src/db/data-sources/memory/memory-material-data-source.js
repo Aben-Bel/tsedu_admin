@@ -14,6 +14,23 @@ class MemoryMaterialDataSource {
     constructor(database) {
         this.database = database;
     }
+    getOne(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const result = yield this.database.getOne(id);
+            return result;
+        });
+    }
+    updateOne(id, data) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const result = yield this.database.updateOne(id, data);
+            return result;
+        });
+    }
+    deleteOne(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.database.delete(id);
+        });
+    }
     create(material) {
         return __awaiter(this, void 0, void 0, function* () {
             const result = yield this.database.insertOne(material);

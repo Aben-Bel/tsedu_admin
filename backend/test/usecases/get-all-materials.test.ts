@@ -1,9 +1,18 @@
-import { Material } from '../../../src/domain/entities/material';
-import { MaterialRepository } from '../../../src/domain/interfaces/repositories/material-interface-repository';
-import { GetAllMaterials } from '../../../src/domain/use-cases/material-get-all-materials';
+import { Material } from '../../src/domain/entities/material';
+import { MaterialRepository } from '../../src/domain/interfaces/repositories/material-interface-repository';
+import { GetAllMaterials } from '../../src/domain/use-cases/material-get-all-materials';
 
 describe('Get All Materials Use Case', () => {
   class MockMaterialRepository implements MaterialRepository {
+    deleteMaterial(id: String): void {
+      throw new Error('Method not implemented.');
+    }
+    updateMaterial(id: String, data: Material): Promise<Material> {
+      throw new Error('Method not implemented.');
+    }
+    getMaterial(id: String): Promise<Material> {
+      throw new Error('Method not implemented.');
+    }
     createMaterial(material: Material): Promise<boolean> {
       throw new Error('Method not implemented');
     }

@@ -8,6 +8,18 @@ export class MaterialRepositoryImpl implements MaterialRepository {
     this.materialDataSource = materialDataSource;
   }
 
+  async deleteMaterial(id: String): Promise<void> {
+    await this.materialDataSource.deleteOne(id);
+  }
+  async updateMaterial(id: String, data: Material): Promise<Material> {
+    const result = await this.materialDataSource.updateOne(id, data);
+    return result;
+  }
+  async getMaterial(id: String): Promise<Material> {
+    const result = await this.materialDataSource.getOne(id);
+    return result;
+  }
+
   async createMaterial(material: Material): Promise<boolean> {
     const result = await this.materialDataSource.create(material);
     return result;
