@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const material_get_all_materials_1 = require("../../src/domain/use-cases/material-get-all-materials");
+const material_get_all_materials_1 = require("../../src/domain/use-cases/material/material-get-all-materials");
 describe('Get All Materials Use Case', () => {
     class MockMaterialRepository {
         deleteMaterial(id) {

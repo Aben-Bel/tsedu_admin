@@ -1,5 +1,5 @@
-import { Material } from '../../../entities/material/material';
+import { Material } from '../../../entities/material/interface/material';
 
 export interface CreateMaterialUseCase {
-  execute(material: Material): Promise<boolean>;
+  execute(material: Material): Promise<Material>;
 }

@@ -86,7 +86,7 @@ describe('Material Router', () => {
             };
             jest
                 .spyOn(mockCreateMaterialUseCase, 'execute')
-                .mockImplementation(() => Promise.resolve(true));
+                .mockImplementation(() => Promise.resolve(InputData));
             const response = yield (0, supertest_1.default)(server_1.default).post('/material').send(InputData);
             expect(response.status).toBe(201);
         }));

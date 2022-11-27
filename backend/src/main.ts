@@ -1,26 +1,18 @@
 import server from './server';
 import MaterialRouter from './presentation/routers/material-router';
-import { GetAllMaterials } from './domain/use-cases/material-get-all-materials';
 import { MaterialRepositoryImpl } from './domain/repositories/material/material-repository';
 import { CreateMaterial } from './domain/use-cases/material/material-create-material';
 import { DatabaseWrapper } from './db/interfaces/database';
 import { MemoryMaterialDataSource } from './db/data-sources/memory/memory-material-data-source';
-import { Material } from './domain/entities/material/material';
-import { UpdateMaterialUseCaseImpl } from './domain/use-cases/material-update-material';
-import { GetOneMaterialUseCaseImpl } from './domain/use-cases/material-get-one-material';
-import { DeleteOneMaterialUseCaseImpl } from './domain/use-cases/material-delete-material';
+import { Material } from './domain/entities/material/interface/material';
+import { GetAllMaterials } from './domain/use-cases/material/material-get-all-materials';
+import { UpdateMaterialUseCaseImpl } from './domain/use-cases/material/material-update-material';
+import { GetOneMaterialUseCaseImpl } from './domain/use-cases/material/material-get-one-material';
+import { DeleteOneMaterialUseCaseImpl } from './domain/use-cases/material/material-delete-material';
+import { MaterialModel } from './domain/entities/material/model/material';
 
 class DB implements DatabaseWrapper {
-  getOne(id: String): Promise<any> {
-    throw new Error('Method not implemented.');
-  }
-  updateOne(id: String, data: object): Promise<any> {
-    throw new Error('Method not implemented.');
-  }
-  delete(id: String): void {
-    throw new Error('Method not implemented.');
-  }
-  materials: Material[] = [
+  private materials: Material[] = [
     {
       id: '',
       title: '',
@@ -33,13 +25,42 @@ class DB implements DatabaseWrapper {
       video: undefined
     }
   ];
+  private idCount = 0;
+
+  getOne(id: String): Promise<any> {
+    for (const m of this.materials) {
+      if (m.id == id) {
+        return Promise.resolve(m);
+      }
+    }
+    return Promise.resolve(null);
+  }
+
+  updateOne(id: String, data: object): Promise<any> {
+    for (let i = 0; i < this.materials.length; i++) {
+      if (this.materials[i].id == id) {
+        this.materials[i] = { ...this.materials[i], ...data };
+        return Promise.resolve(this.materials[i]);
+      }
+    }
+    return Promise.resolve(null);
+  }
+
+  delete(id: String): void {
+    throw new Error('Method not implemented.');
+  }
 
   find(query: object): Promise<any[]> {
     return Promise.resolve(this.materials);
   }
+
   insertOne(doc: any): Promise<any> {
-    this.materials.push(doc);
-    return Promise.resolve(doc);
+    doc.id = this.idCount;
+    this.idCount += 1;
+    const created = new MaterialModel(doc);
+    console.log('added to db: ', created);
+    this.materials.push(created);
+    return Promise.resolve(created);
   }
 }
 
@@ -62,7 +83,7 @@ class DB implements DatabaseWrapper {
       new MaterialRepositoryImpl(new MemoryMaterialDataSource(materialDB))
     )
   );
-
+  const PORT = 3000;
   server.use('/material', materialMiddleWare);
-  server.listen(3000, () => console.log('Running Server'));
+  server.listen(PORT, () => console.log(`Running Server at port ${PORT}`));
 })();

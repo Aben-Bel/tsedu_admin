@@ -1,4 +1,4 @@
-import { Material } from '../../entities/material/material';
+import { Material } from '../../entities/material/interface/material';
 import { MaterialDataSource } from '../../interfaces/data-sources/material/material-data-source';
 import { MaterialRepository } from '../../interfaces/repositories/material/material-interface-repository';
 
@@ -20,7 +20,7 @@ export class MaterialRepositoryImpl implements MaterialRepository {
     return result;
   }
 
-  async createMaterial(material: Material): Promise<boolean> {
+  async createMaterial(material: Material): Promise<Material> {
     const result = await this.materialDataSource.create(material);
     return result;
   }

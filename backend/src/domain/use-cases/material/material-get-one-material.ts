@@ -1,6 +1,6 @@
-import { Material } from '../entities/material';
-import { MaterialRepository } from '../interfaces/repositories/material/material-interface-repository';
-import { GetOneMaterialUseCase } from '../interfaces/use-cases/material/get-one-material';
+import { Material } from '../../entities/material/interface/material';
+import { MaterialRepository } from '../../interfaces/repositories/material/material-interface-repository';
+import { GetOneMaterialUseCase } from '../../interfaces/use-cases/material/get-one-material';
 
 export class GetOneMaterialUseCaseImpl implements GetOneMaterialUseCase {
   materialRepository: MaterialRepository;

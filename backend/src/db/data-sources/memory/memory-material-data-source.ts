@@ -1,6 +1,6 @@
 import { MaterialDataSource } from '../../../domain/interfaces/data-sources/material/material-data-source';
 import { DatabaseWrapper } from '../../interfaces/database';
-import { Material } from '../../../domain/entities/material/material';
+import { Material } from '../../../domain/entities/material/interface/material';
 
 export class MemoryMaterialDataSource implements MaterialDataSource {
   private database: DatabaseWrapper;
@@ -22,9 +22,9 @@ export class MemoryMaterialDataSource implements MaterialDataSource {
     await this.database.delete(id);
   }
 
-  async create(material: Material): Promise<boolean> {
+  async create(material: Material): Promise<Material> {
     const result = await this.database.insertOne(material);
-    return result !== null;
+    return result;
   }
   async getAll(): Promise<Material[]> {
     const result = await this.database.find({});

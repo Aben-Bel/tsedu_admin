@@ -9,39 +9,39 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MemoryMaterialDataSource = void 0;
-class MemoryMaterialDataSource {
-    constructor(database) {
-        this.database = database;
+exports.MaterialRepositoryImpl = void 0;
+class MaterialRepositoryImpl {
+    constructor(materialDataSource) {
+        this.materialDataSource = materialDataSource;
     }
-    getOne(id) {
+    deleteMaterial(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.database.getOne(id);
+            yield this.materialDataSource.deleteOne(id);
+        });
+    }
+    updateMaterial(id, data) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const result = yield this.materialDataSource.updateOne(id, data);
             return result;
         });
     }
-    updateOne(id, data) {
+    getMaterial(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.database.updateOne(id, data);
+            const result = yield this.materialDataSource.getOne(id);
             return result;
         });
     }
-    deleteOne(id) {
+    createMaterial(material) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.database.delete(id);
-        });
-    }
-    create(material) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.database.insertOne(material);
+            const result = yield this.materialDataSource.create(material);
             return result;
         });
     }
-    getAll() {
+    getMaterials() {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.database.find({});
-            return result.map((item) => item);
+            const result = yield this.materialDataSource.getAll();
+            return result;
         });
     }
 }
-exports.MemoryMaterialDataSource = MemoryMaterialDataSource;
+exports.MaterialRepositoryImpl = MaterialRepositoryImpl;

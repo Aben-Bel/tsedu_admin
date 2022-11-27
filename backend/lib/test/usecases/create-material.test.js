@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const material_create_material_1 = require("../../src/domain/use-cases/material-create-material");
+const material_create_material_1 = require("../../src/domain/use-cases/material/material-create-material");
 describe('Create Material Use Case', () => {
     class MockMaterialRepository {
         deleteMaterial(id) {
@@ -47,7 +47,7 @@ describe('Create Material Use Case', () => {
         };
         jest
             .spyOn(mockMaterialRepository, 'createMaterial')
-            .mockImplementation(() => Promise.resolve(true));
+            .mockImplementation(() => Promise.resolve(InputData));
         const createMaterialUseCase = new material_create_material_1.CreateMaterial(mockMaterialRepository);
         const result = yield createMaterialUseCase.execute(InputData);
         expect(result).toBe(true);

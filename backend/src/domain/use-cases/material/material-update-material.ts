@@ -1,6 +1,6 @@
-import { Material } from '../entities/material';
-import { MaterialRepository } from '../interfaces/repositories/material/material-interface-repository';
-import { UpdateMaterialUseCase } from '../interfaces/use-cases/material/update-material';
+import { Material } from '../../entities/material/interface/material';
+import { MaterialRepository } from '../../interfaces/repositories/material/material-interface-repository';
+import { UpdateMaterialUseCase } from '../../interfaces/use-cases/material/update-material';
 
 export class UpdateMaterialUseCaseImpl implements UpdateMaterialUseCase {
   materialRepository: MaterialRepository;

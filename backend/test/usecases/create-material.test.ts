@@ -1,4 +1,4 @@
-import { Material } from '../../src/domain/entities/material/material';
+import { Material } from '../../src/domain/entities/material/interface/material';
 import { MaterialRepository } from '../../src/domain/interfaces/repositories/material/material-interface-repository';
 import { CreateMaterial } from '../../src/domain/use-cases/material/material-create-material';
 
@@ -14,7 +14,7 @@ describe('Create Material Use Case', () => {
       throw new Error('Method not implemented.');
     }
 
-    createMaterial(material: Material): Promise<boolean> {
+    createMaterial(material: Material): Promise<Material> {
       throw new Error('Method not implemented.');
     }
     getMaterials(): Promise<Material[]> {
@@ -44,7 +44,7 @@ describe('Create Material Use Case', () => {
 
     jest
       .spyOn(mockMaterialRepository, 'createMaterial')
-      .mockImplementation(() => Promise.resolve(true));
+      .mockImplementation(() => Promise.resolve(InputData));
     const createMaterialUseCase = new CreateMaterial(mockMaterialRepository);
     const result = await createMaterialUseCase.execute(InputData);
     expect(result).toBe(true);

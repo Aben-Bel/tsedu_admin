@@ -1,4 +1,4 @@
-import { Material } from '../../domain/entities/material/material';
+import { Material } from '../../domain/entities/material/interface/material';
 
 export interface DatabaseWrapper {
   getOne(id: String): Promise<any>;

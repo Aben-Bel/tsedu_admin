@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { Material } from '../../../src/domain/entities/material/material';
+import { Material } from '../../../src/domain/entities/material/interface/material';
 import { CreateMaterialUseCase } from '../../../src/domain/interfaces/use-cases/material/create-material';
 import { DeleteMaterialUseCase } from '../../../src/domain/interfaces/use-cases/material/delete-one-material';
 import { GetAllMaterialsUseCase } from '../../../src/domain/interfaces/use-cases/material/get-all-materials';
@@ -15,7 +15,7 @@ class MockGetAllMaterialsUseCase implements GetAllMaterialsUseCase {
 }
 
 class MockCreateMaterialUseCase implements CreateMaterialUseCase {
-  execute(material: Material): Promise<boolean> {
+  execute(material: Material): Promise<Material> {
     throw new Error('Method not implemented.');
   }
 }
@@ -97,7 +97,7 @@ describe('Material Router', () => {
       };
       jest
         .spyOn(mockCreateMaterialUseCase, 'execute')
-        .mockImplementation(() => Promise.resolve(true));
+        .mockImplementation(() => Promise.resolve(InputData));
       const response = await request(server).post('/material').send(InputData);
       expect(response.status).toBe(201);
     });
