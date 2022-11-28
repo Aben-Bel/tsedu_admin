@@ -14,7 +14,7 @@ export function FormDialogEditResource({ open, setOpen, data, setData }: any) {
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Upload a Resource</DialogTitle>
+      <DialogTitle>Edit a Resource</DialogTitle>
       <DialogContent>
         <TextField
           autoFocus

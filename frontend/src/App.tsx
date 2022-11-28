@@ -8,7 +8,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   if (isLoggedIn) {
-    content = <Dashboard></Dashboard>;
+    content = <Dashboard setIsLoggedIn={setIsLoggedIn}></Dashboard>;
   } else {
     content = <SignIn setIsLoggedIn={setIsLoggedIn}></SignIn>;
   }

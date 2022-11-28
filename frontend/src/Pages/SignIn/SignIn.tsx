@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./SignIn.css";
 
 interface loginState {
   setIsLoggedIn: (data: any) => void;
@@ -36,7 +37,9 @@ export function SignIn({ setIsLoggedIn }: loginState) {
           name="user"
           placeholder="Password"
         />
-        <button onClick={handleLoginClick}>Login</button>
+        <button style={{ color: "#4486A3" }} onClick={handleLoginClick}>
+          Login
+        </button>
       </form>
     </div>
   );

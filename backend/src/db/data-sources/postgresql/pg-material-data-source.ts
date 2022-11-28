@@ -44,7 +44,7 @@ export class PGMaterialDataSource implements MaterialDataSource {
 
   async create(material: Material): Promise<Material> {
     const dbResponse = await this.db.query(
-      `insert into ${DB_TABLE} (title, description, category, type, thumbnail, book, audio, video, videoLink) values ($1) `,
+      `insert into ${DB_TABLE} (title, description, category, type, thumbnail, book, audio, video, videoLink) values ($1,$2,$3) `,
       [
         material.title,
         material.description,
