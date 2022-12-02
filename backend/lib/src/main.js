@@ -21,58 +21,9 @@ const material_get_all_materials_1 = require("./domain/use-cases/material/materi
 const material_update_material_1 = require("./domain/use-cases/material/material-update-material");
 const material_get_one_material_1 = require("./domain/use-cases/material/material-get-one-material");
 const material_delete_material_1 = require("./domain/use-cases/material/material-delete-material");
-const material_1 = require("./domain/entities/material/model/material");
-class DB {
-    constructor() {
-        this.materials = [
-            {
-                id: '',
-                title: '',
-                description: '',
-                category: '',
-                type: '',
-                thumbnail: undefined,
-                book: undefined,
-                audio: undefined,
-                video: undefined
-            }
-        ];
-        this.idCount = 0;
-    }
-    getOne(id) {
-        for (const m of this.materials) {
-            if (m.id == id) {
-                return Promise.resolve(m);
-            }
-        }
-        return Promise.resolve(null);
-    }
-    updateOne(id, data) {
-        for (let i = 0; i < this.materials.length; i++) {
-            if (this.materials[i].id == id) {
-                this.materials[i] = Object.assign(Object.assign({}, this.materials[i]), data);
-                return Promise.resolve(this.materials[i]);
-            }
-        }
-        return Promise.resolve(null);
-    }
-    delete(id) {
-        throw new Error('Method not implemented.');
-    }
-    find(query) {
-        return Promise.resolve(this.materials);
-    }
-    insertOne(doc) {
-        doc.id = this.idCount;
-        this.idCount += 1;
-        const created = new material_1.MaterialModel(doc);
-        console.log('added to db: ', created);
-        this.materials.push(created);
-        return Promise.resolve(created);
-    }
-}
+const inMemoryDB_1 = require("./db/data-sources/memory/inMemoryDB");
 (() => __awaiter(void 0, void 0, void 0, function* () {
-    const materialDB = new DB();
+    const materialDB = new inMemoryDB_1.DB();
     const materialMiddleWare = (0, material_router_1.default)(new material_get_all_materials_1.GetAllMaterials(new material_repository_1.MaterialRepositoryImpl(new memory_material_data_source_1.MemoryMaterialDataSource(materialDB))), new material_create_material_1.CreateMaterial(new material_repository_1.MaterialRepositoryImpl(new memory_material_data_source_1.MemoryMaterialDataSource(materialDB))), new material_update_material_1.UpdateMaterialUseCaseImpl(new material_repository_1.MaterialRepositoryImpl(new memory_material_data_source_1.MemoryMaterialDataSource(materialDB))), new material_get_one_material_1.GetOneMaterialUseCaseImpl(new material_repository_1.MaterialRepositoryImpl(new memory_material_data_source_1.MemoryMaterialDataSource(materialDB))), new material_delete_material_1.DeleteOneMaterialUseCaseImpl(new material_repository_1.MaterialRepositoryImpl(new memory_material_data_source_1.MemoryMaterialDataSource(materialDB))));
     const PORT = 3000;
     server_1.default.use('/material', materialMiddleWare);

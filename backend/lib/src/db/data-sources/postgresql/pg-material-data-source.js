@@ -46,7 +46,7 @@ class PGMaterialDataSource {
     }
     create(material) {
         return __awaiter(this, void 0, void 0, function* () {
-            const dbResponse = yield this.db.query(`insert into ${DB_TABLE} (title, description, category, type, thumbnail, book, audio, video, videoLink) values ($1) `, [
+            const dbResponse = yield this.db.query(`insert into ${DB_TABLE} (title, description, category, type, thumbnail, book, audio, video, videoLink) values ($1,$2,$3) `, [
                 material.title,
                 material.description,
                 material.category,
