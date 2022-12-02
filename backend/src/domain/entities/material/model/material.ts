@@ -2,6 +2,7 @@ import { Material } from '../interface/material';
 
 export class MaterialModel implements Material {
   public id?: string | undefined;
+  public language: string;
   public title: string;
   public description: string;
   public category: string;
@@ -14,6 +15,7 @@ export class MaterialModel implements Material {
 
   constructor(material: Material) {
     this.id = material.id;
+    this.language = material.language;
     this.title = material.title;
     this.description = material.description;
     this.category = material.category;
