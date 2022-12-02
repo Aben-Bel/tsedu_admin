@@ -57,7 +57,14 @@ function Row(props: { row: any }) {
           <IconButton
             aria-label="expand row"
             size="small"
-            onClick={() => setOpen(!open)}
+            onClick={() => {
+              console.log(
+                "files: ",
+                typeof row.book.buffer.data,
+                row.book.buffer.data
+              );
+              setOpen(!open);
+            }}
           >
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
@@ -107,48 +114,88 @@ function Row(props: { row: any }) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.files.map((info: any) => (
-                    <TableRow>
-                      <TableCell align="left">
-                        {typeof window !== "undefined" && info.video ? (
-                          <a href={window.URL.createObjectURL(info.video)} />
-                        ) : (
-                          <div>No data</div>
-                        )}
-                      </TableCell>
-                      <TableCell align="left">
-                        {info.videoLink === "" ? (
-                          <div>No Link</div>
-                        ) : (
-                          <a href={info.videoLink} />
-                        )}
-                      </TableCell>
+                  <TableRow>
+                    <TableCell align="left">
+                      {typeof window !== "undefined" && row.video ? (
+                        <a
+                          href={window.URL.createObjectURL(
+                            new Blob(
+                              [Uint8Array.from(row.video.buffer.data).buffer],
+                              {
+                                type: row.video.mimetype,
+                              }
+                            )
+                          )}
+                        >
+                          {row.video.originalname}
+                        </a>
+                      ) : (
+                        <div>No data</div>
+                      )}
+                    </TableCell>
+                    <TableCell align="left">
+                      {row.videoLink === "" ? (
+                        <div>No Link</div>
+                      ) : (
+                        <a href={row.videoLink} />
+                      )}
+                    </TableCell>
 
-                      <TableCell align="left">
-                        {typeof window !== "undefined" && info.book ? (
-                          <a href={window.URL.createObjectURL(info.book)} />
-                        ) : (
-                          <div>No data</div>
-                        )}
-                      </TableCell>
-                      <TableCell align="left">
-                        {typeof window !== "undefined" && info.audio ? (
-                          <a href={window.URL.createObjectURL(info.audio)} />
-                        ) : (
-                          <div>No data</div>
-                        )}
-                      </TableCell>
-                      <TableCell align="left">
-                        {typeof window !== "undefined" && info.thumbnail ? (
-                          <a
-                            href={window.URL.createObjectURL(info.thumbnail)}
-                          />
-                        ) : (
-                          <div>No data</div>
-                        )}
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                    <TableCell align="left">
+                      {typeof window !== "undefined" && row.book ? (
+                        <a
+                          href={window.URL.createObjectURL(
+                            new Blob(
+                              [Uint8Array.from(row.book.buffer.data).buffer],
+                              {
+                                type: row.book.mimetype,
+                              }
+                            )
+                          )}
+                        >
+                          {row.book.originalname}
+                        </a>
+                      ) : (
+                        <div>No data</div>
+                      )}
+                    </TableCell>
+                    <TableCell align="left">
+                      {typeof window !== "undefined" && row.audio ? (
+                        <a
+                          href={window.URL.createObjectURL(
+                            new Blob(
+                              [Uint8Array.from(row.audio.buffer.data).buffer],
+                              {
+                                type: row.audio.mimetype,
+                              }
+                            )
+                          )}
+                        >
+                          {row.audio.originalname}
+                        </a>
+                      ) : (
+                        <div>No data</div>
+                      )}
+                    </TableCell>
+                    <TableCell align="left">
+                      {typeof window !== "undefined" && row.thumbnail ? (
+                        <a
+                          href={window.URL.createObjectURL(
+                            new Blob(
+                              [Uint8Array.from(row.book.buffer.data).buffer],
+                              {
+                                type: row.book.mimetype,
+                              }
+                            )
+                          )}
+                        >
+                          {row.thumbnail.originalname}
+                        </a>
+                      ) : (
+                        <div>No data</div>
+                      )}
+                    </TableCell>
+                  </TableRow>
                 </TableBody>
               </Table>
             </Box>
