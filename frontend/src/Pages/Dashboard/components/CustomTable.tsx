@@ -65,6 +65,7 @@ function Row(props: { row: any }) {
         <TableCell component="th" scope="row">
           {row.id}
         </TableCell>
+        <TableCell align="left">{row.language}</TableCell>
         <TableCell align="left">{row.title}</TableCell>
         <TableCell align="left">{row.description}</TableCell>
         <TableCell align="left">{row.category}</TableCell>
@@ -187,6 +188,9 @@ export default function CollapsibleTable({ rows }: { rows: any[] }) {
 
               <TableCell style={{ color: "white" }}>id</TableCell>
               <TableCell style={{ color: "white" }} align="left">
+                Langauge
+              </TableCell>
+              <TableCell style={{ color: "white" }} align="left">
                 Title
               </TableCell>
               <TableCell style={{ color: "white" }} align="left">
@@ -204,7 +208,7 @@ export default function CollapsibleTable({ rows }: { rows: any[] }) {
           </TableHead>
           <TableBody>
             {currentRows.map((row: any) => (
-              <Row key={row.id} row={row} />
+              <Row key={Number(row.id)} row={row} />
             ))}
           </TableBody>
         </Table>

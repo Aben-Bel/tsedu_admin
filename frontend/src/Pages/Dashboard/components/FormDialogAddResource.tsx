@@ -20,6 +20,20 @@ export function FormDialogAddResource({ open, setOpen }: any) {
         <TextField
           autoFocus
           margin="dense"
+          id="lanaguage"
+          label="Langauge"
+          type="text"
+          fullWidth
+          variant="standard"
+          onChange={(e: any) => {
+            const data = { ...formData, language: e.target.value };
+            setFormData(data);
+          }}
+        />
+
+        <TextField
+          autoFocus
+          margin="dense"
           id="title"
           label="Title"
           type="text"
