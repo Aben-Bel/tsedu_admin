@@ -1,19 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Button, Tab } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import CollapsibleTable from "./components/CustomTable";
 import "./Dashboard.css";
 import { FormDialogAddResource } from "./components/FormDialogAddResource";
+import { materialProvider } from "../../provider/material";
 
 export function Dashboard({ setIsLoggedIn }: any) {
   const [value, setValue] = useState("1");
   const [open, setOpen] = useState(false);
+  const [rows, setRows] = useState<any[]>([]);
 
   const pageText = ["Resource Upload", "Banner Upload", "Change Password"];
 
   const handleClickOpen = () => {
     setOpen(true);
   };
+
+  useEffect(() => {
+    materialProvider.get().then((data) => {
+      console.log(data);
+      setRows(data.map((item) => ({ ...item, files: [] })));
+    });
+  }, []);
 
   function handleChange(e: React.SyntheticEvent, newValue: string): void {
     setValue(newValue);
@@ -51,99 +60,99 @@ export function Dashboard({ setIsLoggedIn }: any) {
     };
   }
 
-  const rows = [
-    createData(
-      "1",
-      "Langauge",
-      "Title",
-      "Desc",
-      "Category",
-      "Type",
-      undefined,
-      "",
-      undefined,
-      undefined,
-      undefined
-    ),
-    createData(
-      "2",
-      "Langauge",
-      "Title",
-      "Desc",
-      "Category",
-      "Type",
-      undefined,
-      "",
-      undefined,
-      undefined,
-      undefined
-    ),
-    createData(
-      "3",
-      "Langauge",
-      "Title",
-      "Desc",
-      "Category",
-      "Type",
-      undefined,
-      "",
-      undefined,
-      undefined,
-      undefined
-    ),
-    createData(
-      "4",
-      "Langauge",
-      "Title",
-      "Desc",
-      "Category",
-      "Type",
-      undefined,
-      "",
-      undefined,
-      undefined,
-      undefined
-    ),
-    createData(
-      "5",
-      "Langauge",
-      "Title",
-      "Desc",
-      "Category",
-      "Type",
-      undefined,
-      "",
-      undefined,
-      undefined,
-      undefined
-    ),
-    createData(
-      "6",
-      "Langauge",
-      "Title",
-      "Desc",
-      "Category",
-      "Type",
-      undefined,
-      "",
-      undefined,
-      undefined,
-      undefined
-    ),
-    createData(
-      "7",
-      "Langauge",
-      "Title",
-      "Desc",
-      "Category",
-      "Type",
-      undefined,
-      "",
-      undefined,
-      undefined,
-      undefined
-    ),
-  ];
+  // const rows = [
+  //   createData(
+  //     "1",
+  //     "Langauge",
+  //     "Title",
+  //     "Desc",
+  //     "Category",
+  //     "Type",
+  //     undefined,
+  //     "",
+  //     undefined,
+  //     undefined,
+  //     undefined
+  //   ),
+  //   createData(
+  //     "2",
+  //     "Langauge",
+  //     "Title",
+  //     "Desc",
+  //     "Category",
+  //     "Type",
+  //     undefined,
+  //     "",
+  //     undefined,
+  //     undefined,
+  //     undefined
+  //   ),
+  //   createData(
+  //     "3",
+  //     "Langauge",
+  //     "Title",
+  //     "Desc",
+  //     "Category",
+  //     "Type",
+  //     undefined,
+  //     "",
+  //     undefined,
+  //     undefined,
+  //     undefined
+  //   ),
+  //   createData(
+  //     "4",
+  //     "Langauge",
+  //     "Title",
+  //     "Desc",
+  //     "Category",
+  //     "Type",
+  //     undefined,
+  //     "",
+  //     undefined,
+  //     undefined,
+  //     undefined
+  //   ),
+  //   createData(
+  //     "5",
+  //     "Langauge",
+  //     "Title",
+  //     "Desc",
+  //     "Category",
+  //     "Type",
+  //     undefined,
+  //     "",
+  //     undefined,
+  //     undefined,
+  //     undefined
+  //   ),
+  //   createData(
+  //     "6",
+  //     "Langauge",
+  //     "Title",
+  //     "Desc",
+  //     "Category",
+  //     "Type",
+  //     undefined,
+  //     "",
+  //     undefined,
+  //     undefined,
+  //     undefined
+  //   ),
+  //   createData(
+  //     "7",
+  //     "Langauge",
+  //     "Title",
+  //     "Desc",
+  //     "Category",
+  //     "Type",
+  //     undefined,
+  //     "",
+  //     undefined,
+  //     undefined,
+  //     undefined
+  //   ),
+  // ];
 
   return (
     <div className="">

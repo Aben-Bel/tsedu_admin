@@ -16,7 +16,7 @@ export function FormDialogEditResource({ open, setOpen, data, setData }: any) {
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>Edit a Resource</DialogTitle>
       <DialogContent>
-         <TextField
+        <TextField
           autoFocus
           margin="dense"
           id="language"
@@ -24,9 +24,9 @@ export function FormDialogEditResource({ open, setOpen, data, setData }: any) {
           type="text"
           fullWidth
           variant="standard"
-          value={data.langauge}
+          value={data.language}
           onChange={(e: any) => {
-            setData({ ...data, langauge: e.target.value });
+            setData({ ...data, language: e.target.value });
           }}
         />
 
