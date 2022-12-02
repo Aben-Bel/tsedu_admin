@@ -32,6 +32,18 @@ function Row(props: { row: any }) {
     setEditData(row);
   }
 
+  function contructObjectURL(obj: any) {
+    try {
+      return window.URL.createObjectURL(
+        new Blob([Uint8Array.from(obj.buffer.data).buffer], {
+          type: obj.mimetype,
+        })
+      );
+    } catch (e) {
+      return "";
+    }
+  }
+
   const handleClickOpen = (data: any) => {
     setAlertOpen(true);
     setDeleteRes(data);
@@ -58,11 +70,7 @@ function Row(props: { row: any }) {
             aria-label="expand row"
             size="small"
             onClick={() => {
-              console.log(
-                "files: ",
-                typeof row.book.buffer.data,
-                row.book.buffer.data
-              );
+              console.log();
               setOpen(!open);
             }}
           >
@@ -118,14 +126,8 @@ function Row(props: { row: any }) {
                     <TableCell align="left">
                       {typeof window !== "undefined" && row.video ? (
                         <a
-                          href={window.URL.createObjectURL(
-                            new Blob(
-                              [Uint8Array.from(row.video.buffer.data).buffer],
-                              {
-                                type: row.video.mimetype,
-                              }
-                            )
-                          )}
+                          href={contructObjectURL(row.video)}
+                          download={row.video.originalname}
                         >
                           {row.video.originalname}
                         </a>
@@ -134,24 +136,18 @@ function Row(props: { row: any }) {
                       )}
                     </TableCell>
                     <TableCell align="left">
-                      {row.videoLink === "" ? (
-                        <div>No Link</div>
-                      ) : (
+                      {row.videoLink ? (
                         <a href={row.videoLink} />
+                      ) : (
+                        <div>No Link</div>
                       )}
                     </TableCell>
 
                     <TableCell align="left">
                       {typeof window !== "undefined" && row.book ? (
                         <a
-                          href={window.URL.createObjectURL(
-                            new Blob(
-                              [Uint8Array.from(row.book.buffer.data).buffer],
-                              {
-                                type: row.book.mimetype,
-                              }
-                            )
-                          )}
+                          href={contructObjectURL(row.book)}
+                          download={row.book.originalname}
                         >
                           {row.book.originalname}
                         </a>
@@ -162,14 +158,8 @@ function Row(props: { row: any }) {
                     <TableCell align="left">
                       {typeof window !== "undefined" && row.audio ? (
                         <a
-                          href={window.URL.createObjectURL(
-                            new Blob(
-                              [Uint8Array.from(row.audio.buffer.data).buffer],
-                              {
-                                type: row.audio.mimetype,
-                              }
-                            )
-                          )}
+                          href={contructObjectURL(row.audio)}
+                          download={row.audio.originalname}
                         >
                           {row.audio.originalname}
                         </a>
@@ -178,16 +168,12 @@ function Row(props: { row: any }) {
                       )}
                     </TableCell>
                     <TableCell align="left">
-                      {typeof window !== "undefined" && row.thumbnail ? (
+                      {typeof window !== "undefined" &&
+                      typeof row.thumbnail ===
+                        typeof { buffer: { data: ArrayBuffer } } ? (
                         <a
-                          href={window.URL.createObjectURL(
-                            new Blob(
-                              [Uint8Array.from(row.book.buffer.data).buffer],
-                              {
-                                type: row.book.mimetype,
-                              }
-                            )
-                          )}
+                          href={contructObjectURL(row.thumbnail)}
+                          download={row.thumbnail.originalname}
                         >
                           {row.thumbnail.originalname}
                         </a>

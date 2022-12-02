@@ -65,12 +65,34 @@ class axiosApi implements API {
     );
     return Promise.resolve(materials);
   }
+
   getById(id: string): Promise<Object> {
     throw new Error("Method not implemented.");
   }
-  post(material: Material): Promise<Object> {
-    throw new Error("Method not implemented.");
+
+  async post(material: Material): Promise<Object> {
+    console.log("material: ", material);
+    const bodyFormData = new FormData();
+    if (material.language) bodyFormData.append("language", material.language);
+    if (material.title) bodyFormData.append("title", material.title);
+    if (material.category) bodyFormData.append("category", material.category);
+    if (material.type) bodyFormData.append("language", material.type);
+    if (material.video) bodyFormData.append("video", material.video);
+    if (material.videoLink)
+      bodyFormData.append("videoLink", material.videoLink);
+    if (material.thumbnail)
+      bodyFormData.append("thumbnail", material.thumbnail);
+    if (material.book) bodyFormData.append("book", material.book);
+    if (material.audio) bodyFormData.append("audio", material.audio);
+
+    return await axios({
+      method: "post",
+      url: this.base_url,
+      data: bodyFormData,
+      headers: { "Content-Type": "multipart/form-data" },
+    });
   }
+
   put(id: string, material: Material): Promise<Object> {
     throw new Error("Method not implemented.");
   }

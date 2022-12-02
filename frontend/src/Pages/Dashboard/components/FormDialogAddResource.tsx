@@ -5,11 +5,12 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import { materialProvider } from "../../../provider/material";
 
 export function FormDialogAddResource({ open, setOpen }: any) {
   const [formData, setFormData] = useState({});
   const handleClose = () => {
-    console.log(formData);
+    materialProvider.createMaterial(formData as any)
     setOpen(false);
   };
 
