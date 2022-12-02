@@ -20,7 +20,7 @@ function MaterialRouter(getAllMaterialsUseCase, createMaterialUseCase, udpateMat
     router.get('/', (req, res) => __awaiter(this, void 0, void 0, function* () {
         try {
             const materials = yield getAllMaterialsUseCase.execute();
-            res.send(materials.map((item) => (Object.assign(Object.assign({}, item), { book: undefined, video: undefined, audio: undefined, thumbnail: undefined }))));
+            res.send(materials.map((item) => (Object.assign({}, item))));
         }
         catch (err) {
             res.status(500).send({ message: 'Error Fetching Data' });

@@ -4,6 +4,7 @@ exports.MaterialModel = void 0;
 class MaterialModel {
     constructor(material) {
         this.id = material.id;
+        this.language = material.language;
         this.title = material.title;
         this.description = material.description;
         this.category = material.category;

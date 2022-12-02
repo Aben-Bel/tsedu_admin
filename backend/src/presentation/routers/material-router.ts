@@ -23,11 +23,7 @@ export default function MaterialRouter(
 
       res.send(
         materials.map((item) => ({
-          ...item,
-          book: undefined,
-          video: undefined,
-          audio: undefined,
-          thumbnail: undefined
+          ...item
         }))
       );
     } catch (err) {

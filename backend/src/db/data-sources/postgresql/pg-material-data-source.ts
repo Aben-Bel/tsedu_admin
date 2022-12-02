@@ -17,6 +17,7 @@ export class PGMaterialDataSource implements MaterialDataSource {
     );
     const res = dbResponse.rows.map((item: Material) => ({
       id: item.id,
+      language: item.language,
       title: item.title,
       description: item.description,
       category: item.category,
@@ -47,6 +48,7 @@ export class PGMaterialDataSource implements MaterialDataSource {
       `insert into ${DB_TABLE} (title, description, category, type, thumbnail, book, audio, video, videoLink) values ($1,$2,$3) `,
       [
         material.title,
+        material.language,
         material.description,
         material.category,
         material.type,

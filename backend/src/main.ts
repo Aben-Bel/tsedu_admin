@@ -31,7 +31,7 @@ import { DB } from './db/data-sources/memory/inMemoryDB';
       new MaterialRepositoryImpl(new MemoryMaterialDataSource(materialDB))
     )
   );
-  const PORT = 3000;
+  const PORT = 4545;
   server.use('/material', materialMiddleWare);
-  server.listen(PORT, () => console.log(`Running Server at port ${PORT}`));
+  server.listen(PORT, () => console.log(`Running Server at port: ${PORT}`));
 })();

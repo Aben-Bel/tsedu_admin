@@ -20,6 +20,7 @@ class PGMaterialDataSource {
             const dbResponse = yield this.db.query(`select * from ${DB_TABLE} where id = $1 limit 1`, [id]);
             const res = dbResponse.rows.map((item) => ({
                 id: item.id,
+                language: item.language,
                 title: item.title,
                 description: item.description,
                 category: item.category,
@@ -48,6 +49,7 @@ class PGMaterialDataSource {
         return __awaiter(this, void 0, void 0, function* () {
             const dbResponse = yield this.db.query(`insert into ${DB_TABLE} (title, description, category, type, thumbnail, book, audio, video, videoLink) values ($1,$2,$3) `, [
                 material.title,
+                material.language,
                 material.description,
                 material.category,
                 material.type,

@@ -25,7 +25,7 @@ const inMemoryDB_1 = require("./db/data-sources/memory/inMemoryDB");
 (() => __awaiter(void 0, void 0, void 0, function* () {
     const materialDB = new inMemoryDB_1.DB();
     const materialMiddleWare = (0, material_router_1.default)(new material_get_all_materials_1.GetAllMaterials(new material_repository_1.MaterialRepositoryImpl(new memory_material_data_source_1.MemoryMaterialDataSource(materialDB))), new material_create_material_1.CreateMaterial(new material_repository_1.MaterialRepositoryImpl(new memory_material_data_source_1.MemoryMaterialDataSource(materialDB))), new material_update_material_1.UpdateMaterialUseCaseImpl(new material_repository_1.MaterialRepositoryImpl(new memory_material_data_source_1.MemoryMaterialDataSource(materialDB))), new material_get_one_material_1.GetOneMaterialUseCaseImpl(new material_repository_1.MaterialRepositoryImpl(new memory_material_data_source_1.MemoryMaterialDataSource(materialDB))), new material_delete_material_1.DeleteOneMaterialUseCaseImpl(new material_repository_1.MaterialRepositoryImpl(new memory_material_data_source_1.MemoryMaterialDataSource(materialDB))));
-    const PORT = 3000;
+    const PORT = 4545;
     server_1.default.use('/material', materialMiddleWare);
-    server_1.default.listen(PORT, () => console.log(`Running Server at port ${PORT}`));
+    server_1.default.listen(PORT, () => console.log(`Running Server at port: ${PORT}`));
 }))();
