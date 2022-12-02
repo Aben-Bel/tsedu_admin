@@ -76,7 +76,7 @@ class axiosApi implements API {
     if (material.language) bodyFormData.append("language", material.language);
     if (material.title) bodyFormData.append("title", material.title);
     if (material.category) bodyFormData.append("category", material.category);
-    if (material.type) bodyFormData.append("language", material.type);
+    if (material.type) bodyFormData.append("type", material.type);
     if (material.video) bodyFormData.append("video", material.video);
     if (material.videoLink)
       bodyFormData.append("videoLink", material.videoLink);
