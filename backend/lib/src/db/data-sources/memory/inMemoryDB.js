@@ -18,14 +18,31 @@ class DB {
     updateOne(id, data) {
         for (let i = 0; i < this.materials.length; i++) {
             if (this.materials[i].id == id) {
-                this.materials[i] = Object.assign(Object.assign({}, this.materials[i]), data);
+                console.log('material to be updated: ', this.materials[i]);
+                let res = {};
+                res = Object.assign(Object.assign({}, this.materials[i]), data);
+                if (data.video)
+                    res.video = data.video;
+                if (data.audio)
+                    res.audio = data.audio;
+                if (data.thumbnail)
+                    res.thumbnail = data.thumbnail;
+                if (data.book)
+                    res.book = data.book;
+                this.materials[i] = res;
+                console.log('material after updated: ', this.materials[i]);
                 return Promise.resolve(this.materials[i]);
             }
         }
         return Promise.resolve(null);
     }
     delete(id) {
-        throw new Error('Method not implemented.');
+        for (let i = 0; i < this.materials.length; i++) {
+            if (this.materials[i].id == id) {
+                this.materials.splice(i, 1);
+                return;
+            }
+        }
     }
     find(query) {
         return Promise.resolve(this.materials);

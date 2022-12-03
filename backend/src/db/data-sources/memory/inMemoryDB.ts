@@ -1,6 +1,6 @@
-import { Material } from "../../../domain/entities/material/interface/material";
-import { MaterialModel } from "../../../domain/entities/material/model/material";
-import { DatabaseWrapper } from "../../interfaces/database";
+import { Material } from '../../../domain/entities/material/interface/material';
+import { MaterialModel } from '../../../domain/entities/material/model/material';
+import { DatabaseWrapper } from '../../interfaces/database';
 
 export class DB implements DatabaseWrapper {
   private materials: Material[] = [];
@@ -15,18 +15,31 @@ export class DB implements DatabaseWrapper {
     return Promise.resolve(null);
   }
 
-  updateOne(id: String, data: object): Promise<any> {
+  updateOne(id: String, data: any): Promise<any> {
     for (let i = 0; i < this.materials.length; i++) {
       if (this.materials[i].id == id) {
-        this.materials[i] = { ...this.materials[i], ...data };
+        console.log('material to be updated: ', this.materials[i]);
+        let res: any = {};
+        res = { ...this.materials[i], ...data };
+        if (data.video) res.video = data.video;
+        if (data.audio) res.audio = data.audio;
+        if (data.thumbnail) res.thumbnail = data.thumbnail;
+        if (data.book) res.book = data.book;
+        this.materials[i] = res;
+        console.log('material after updated: ', this.materials[i]);
         return Promise.resolve(this.materials[i]);
       }
     }
     return Promise.resolve(null);
   }
 
-  delete(id: String): void {
-    throw new Error('Method not implemented.');
+  delete(id: string): void {
+    for (let i = 0; i < this.materials.length; i++) {
+      if (this.materials[i].id == id) {
+        this.materials.splice(i, 1);
+        return;
+      }
+    }
   }
 
   find(query: object): Promise<any[]> {
