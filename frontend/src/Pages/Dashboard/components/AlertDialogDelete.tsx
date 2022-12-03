@@ -5,9 +5,11 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { materialProvider } from "../../../provider/material";
 
 export default function AlertDialog({ open, setOpen, data }: any) {
-  const handleClose = () => {
+  const handleClose = async (data: any) => {
+    await materialProvider.deleteMaterial(data.id)
     setOpen(false);
   };
 
@@ -29,11 +31,17 @@ export default function AlertDialog({ open, setOpen, data }: any) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button
+            onClick={() => {
+              setOpen(false);
+            }}
+          >
+            Cancel
+          </Button>
           <Button
             variant="contained"
             color="error"
-            onClick={handleClose}
+            onClick={() => handleClose(data)}
             autoFocus
           >
             Delete

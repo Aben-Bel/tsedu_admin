@@ -71,10 +71,12 @@ class axiosApi implements API {
   }
 
   async post(material: Material): Promise<Object> {
-    console.log("material: ", material);
+    console.log("post material: ", material);
     const bodyFormData = new FormData();
     if (material.language) bodyFormData.append("language", material.language);
     if (material.title) bodyFormData.append("title", material.title);
+    if (material.description)
+      bodyFormData.append("description", material.description);
     if (material.category) bodyFormData.append("category", material.category);
     if (material.type) bodyFormData.append("type", material.type);
     if (material.video) bodyFormData.append("video", material.video);
@@ -93,11 +95,32 @@ class axiosApi implements API {
     });
   }
 
-  put(id: string, material: Material): Promise<Object> {
-    throw new Error("Method not implemented.");
+  async put(id: string, material: Material): Promise<Object> {
+    console.log("post material: ", material);
+    const bodyFormData = new FormData();
+    if (material.language) bodyFormData.append("language", material.language);
+    if (material.title) bodyFormData.append("title", material.title);
+    if (material.description)
+      bodyFormData.append("description", material.description);
+    if (material.category) bodyFormData.append("category", material.category);
+    if (material.type) bodyFormData.append("type", material.type);
+    if (material.video) bodyFormData.append("video", material.video);
+    if (material.videoLink)
+      bodyFormData.append("videoLink", material.videoLink);
+    if (material.thumbnail)
+      bodyFormData.append("thumbnail", material.thumbnail);
+    if (material.book) bodyFormData.append("book", material.book);
+    if (material.audio) bodyFormData.append("audio", material.audio);
+
+    return await axios({
+      method: "put",
+      url: this.base_url + "/" + id,
+      data: bodyFormData,
+      headers: { "Content-Type": "multipart/form-data" },
+    });
   }
-  delete(id: string): Promise<Boolean> {
-    throw new Error("Method not implemented.");
+  async delete(id: string): Promise<Boolean> {
+    return await axios.delete(this.base_url + "/" + id);
   }
 }
 
@@ -115,7 +138,7 @@ class MaterialProvider {
     return this.api.put(id, material);
   }
 
-  delteMaterial(id: string) {
+  deleteMaterial(id: string) {
     return this.api.delete(id);
   }
 
