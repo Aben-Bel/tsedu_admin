@@ -43,7 +43,7 @@ class MaterialModel implements Material {
 }
 
 interface API {
-  get(): Promise<any[]>;
+  get(query: any): Promise<any[]>;
   getById(id: string): Promise<Object>;
   post(material: Material): Promise<Object>;
   put(id: string, material: Material): Promise<Object>;
@@ -52,11 +52,11 @@ interface API {
 
 class axiosApi implements API {
   private base_url = "http://localhost:4545/material";
-  async get(): Promise<any[]> {
+  async get(query: any): Promise<any[]> {
+    const { page, rowsPerPage } = query;
     const results: any[] = await axios
-      .get(this.base_url)
+      .get(this.base_url + "?limit=" + rowsPerPage + "&skip=" + page)
       .then((res) => res.data);
-    console.log("result: ", results);
     const materials = results.map(
       (item: Material) =>
         new MaterialModel({
@@ -142,8 +142,8 @@ class MaterialProvider {
     return this.api.delete(id);
   }
 
-  async get(): Promise<any[]> {
-    return await this.api.get();
+  async get({ page, rowsPerPage }: any): Promise<any[]> {
+    return await this.api.get({ page, rowsPerPage });
   }
 
   getOne(id: string) {

@@ -5,21 +5,18 @@ import IconButton from "@mui/material/IconButton";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import { TablePagination } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AlertDialog from "./AlertDialogDelete";
 import { useState } from "react";
 import { FormDialogEditResource } from "./FormDialogEditResource";
 
-function Row(props: { row: any }) {
+export function Row(props: { row: any }) {
   const { row } = props;
   const [open, setOpen] = useState(false);
   const [alertOpen, setAlertOpen] = useState(false);
@@ -189,72 +186,5 @@ function Row(props: { row: any }) {
         </TableCell>
       </TableRow>
     </React.Fragment>
-  );
-}
-
-export default function CollapsibleTable({ rows }: { rows: any[] }) {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-  const currentRows = rows.filter((r, ind) => {
-    return ind >= rowsPerPage * page && ind < rowsPerPage * (page + 1);
-  });
-
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-  return (
-    <div>
-      <TableContainer component={Paper}>
-        <Table aria-label="collapsible table">
-          <TableHead style={{ backgroundColor: "#4486A3" }}>
-            <TableRow>
-              <TableCell />
-
-              <TableCell style={{ color: "white" }}>id</TableCell>
-              <TableCell style={{ color: "white" }} align="left">
-                Langauge
-              </TableCell>
-              <TableCell style={{ color: "white" }} align="left">
-                Title
-              </TableCell>
-              <TableCell style={{ color: "white" }} align="left">
-                Description
-              </TableCell>
-              <TableCell style={{ color: "white" }} align="left">
-                Category
-              </TableCell>
-              <TableCell style={{ color: "white" }} align="left">
-                Type
-              </TableCell>
-              <TableCell style={{ color: "white" }} align="left"></TableCell>
-              <TableCell style={{ color: "white" }} align="left"></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {currentRows.map((row: any) => (
-              <Row key={Number(row.id)} row={row} />
-            ))}
-          </TableBody>
-        </Table>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </TableContainer>
-    </div>
   );
 }

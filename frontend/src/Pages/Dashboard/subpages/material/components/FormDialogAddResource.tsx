@@ -1,105 +1,116 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { materialProvider } from "../../../provider/material";
+import { materialProvider } from "../../../../../provider/material";
+import useForm from "../../../../../hooks/useForm";
+import { validateAddResource } from "../validation/addResourceValidation";
 
-export function FormDialogEditResource({ open, setOpen, data, setData }: any) {
+export function FormDialogAddResource({ open, setOpen }: any) {
+  const [formData, setFormData] = useState({});
+  const submitFrom = () => {
+    materialProvider.createMaterial({ ...values, ...formData } as any);
+    setOpen(false);
+  };
+
+  const { values, errors, handleChange, handleSubmit } = useForm(
+    submitFrom,
+    validateAddResource
+  );
+
   const handleClose = () => {
-    console.log(data);
-    materialProvider.editMaterial(data.id + "", data);
     setOpen(false);
   };
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Edit a Resource</DialogTitle>
+      <DialogTitle>Upload a Resource</DialogTitle>
       <DialogContent>
         <TextField
           autoFocus
+          required
           margin="dense"
           id="language"
-          label="Language"
+          label="Langauge"
           type="text"
           fullWidth
           variant="standard"
-          value={data.language}
-          onChange={(e: any) => {
-            setData({ ...data, language: e.target.value });
-          }}
+          onChange={handleChange}
+          error={errors.language}
+          helperText={errors.language ? errors.language : ""}
         />
 
         <TextField
           autoFocus
+          required
           margin="dense"
           id="title"
           label="Title"
           type="text"
           fullWidth
           variant="standard"
-          value={data.title}
-          onChange={(e: any) => {
-            setData({ ...data, title: e.target.value });
-          }}
+          onChange={handleChange}
+          error={errors.title}
+          helperText={errors.title ? errors.title : ""}
         />
 
         <TextField
           autoFocus
+          required
           margin="dense"
           id="description"
           label="Description"
           type="text"
           fullWidth
           variant="standard"
-          value={data.description}
-          onChange={(e: any) => {
-            setData({ ...data, description: e.target.value });
-          }}
+          onChange={handleChange}
+          error={errors.description}
+          helperText={errors.description ? errors.description : ""}
         />
 
         <TextField
           autoFocus
+          required
           margin="dense"
           id="category"
           label="Category"
           type="text"
           fullWidth
           variant="standard"
-          value={data.category}
-          onChange={(e: any) => {
-            setData({ ...data, category: e.target.value });
-          }}
+          onChange={handleChange}
+          error={errors.category}
+          helperText={errors.category ? errors.category : ""}
         />
 
         <TextField
           autoFocus
+          required
           margin="dense"
           id="type"
           label="Type"
           type="text"
           fullWidth
           variant="standard"
-          value={data.type}
-          onChange={(e: any) => {
-            setData({ ...data, type: e.target.value });
-          }}
+          onChange={handleChange}
+          error={errors.type}
+          helperText={errors.type ? errors.type : ""}
         />
 
         <TextField
           autoFocus
+          required
           margin="dense"
           id="videoLink"
           label="Video Link"
           type="text"
           fullWidth
           variant="standard"
-          value={data.videoLink}
-          onChange={(e: any) => {
-            setData({ ...data, videoLink: e.target.value });
-          }}
+          onChange={handleChange}
+          error={errors.videoLink}
+          helperText={errors.videoLink ? errors.videoLink : ""}
         />
 
         <div
@@ -113,7 +124,8 @@ export function FormDialogEditResource({ open, setOpen, data, setData }: any) {
           <input
             type="file"
             onChange={(e: any) => {
-              setData({ ...data, thumbnail: e.target.files[0] });
+              const data = { ...formData, thumbnail: e.target.files[0] };
+              setFormData(data);
             }}
           />
 
@@ -121,7 +133,8 @@ export function FormDialogEditResource({ open, setOpen, data, setData }: any) {
           <input
             type="file"
             onChange={(e: any) => {
-              setData({ ...data, video: e.target.files[0] });
+              const data = { ...formData, video: e.target.files[0] };
+              setFormData(data);
             }}
           />
 
@@ -129,7 +142,8 @@ export function FormDialogEditResource({ open, setOpen, data, setData }: any) {
           <input
             type="file"
             onChange={(e: any) => {
-              setData({ ...data, audio: e.target.files[0] });
+              const data = { ...formData, audio: e.target.files[0] };
+              setFormData(data);
             }}
           />
 
@@ -137,7 +151,8 @@ export function FormDialogEditResource({ open, setOpen, data, setData }: any) {
           <input
             type="file"
             onChange={(e: any) => {
-              setData({ ...data, book: e.target.files[0] });
+              const data = { ...formData, book: e.target.files[0] };
+              setFormData(data);
             }}
           />
         </div>
@@ -145,7 +160,7 @@ export function FormDialogEditResource({ open, setOpen, data, setData }: any) {
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
         <Button
-          onClick={handleClose}
+          onClick={handleSubmit}
           style={{ color: "white", background: "#4486A3" }}
         >
           Complete

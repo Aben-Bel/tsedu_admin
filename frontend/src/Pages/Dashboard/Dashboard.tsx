@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Box, Button, Tab } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import CollapsibleTable from "./components/CustomTable";
+import CollapsibleTable from "./subpages/material/components/CustomTable";
 import "./Dashboard.css";
-import { FormDialogAddResource } from "./components/FormDialogAddResource";
+import { FormDialogAddResource } from "./subpages/material/components/FormDialogAddResource";
 import { materialProvider } from "../../provider/material";
 
 export function Dashboard({ setIsLoggedIn }: any) {
@@ -13,146 +13,17 @@ export function Dashboard({ setIsLoggedIn }: any) {
 
   const pageText = ["Resource Upload", "Banner Upload", "Change Password"];
 
-  const handleClickOpen = () => {
+  const handleClickAddResource = () => {
     setOpen(true);
   };
 
   useEffect(() => {
-    materialProvider.get().then((data) => {
-      console.log(data);
-      setRows(data.map((item) => ({ ...item, files: [] })));
-    });
+    setRows([]);
   }, []);
 
   function handleChange(e: React.SyntheticEvent, newValue: string): void {
     setValue(newValue);
   }
-
-  function createData(
-    id: string,
-    language: string,
-    title: string,
-    description: string,
-    category: string,
-    type: string,
-    video: File | undefined,
-    videoLink: string,
-    book: File | undefined,
-    audio: File | undefined,
-    thumbnail: File | undefined
-  ) {
-    return {
-      id,
-      language,
-      title,
-      description,
-      category,
-      type,
-      files: [
-        {
-          video: video,
-          videoLink: videoLink,
-          book: book,
-          audio: audio,
-          thumbnail: thumbnail,
-        },
-      ],
-    };
-  }
-
-  // const rows = [
-  //   createData(
-  //     "1",
-  //     "Langauge",
-  //     "Title",
-  //     "Desc",
-  //     "Category",
-  //     "Type",
-  //     undefined,
-  //     "",
-  //     undefined,
-  //     undefined,
-  //     undefined
-  //   ),
-  //   createData(
-  //     "2",
-  //     "Langauge",
-  //     "Title",
-  //     "Desc",
-  //     "Category",
-  //     "Type",
-  //     undefined,
-  //     "",
-  //     undefined,
-  //     undefined,
-  //     undefined
-  //   ),
-  //   createData(
-  //     "3",
-  //     "Langauge",
-  //     "Title",
-  //     "Desc",
-  //     "Category",
-  //     "Type",
-  //     undefined,
-  //     "",
-  //     undefined,
-  //     undefined,
-  //     undefined
-  //   ),
-  //   createData(
-  //     "4",
-  //     "Langauge",
-  //     "Title",
-  //     "Desc",
-  //     "Category",
-  //     "Type",
-  //     undefined,
-  //     "",
-  //     undefined,
-  //     undefined,
-  //     undefined
-  //   ),
-  //   createData(
-  //     "5",
-  //     "Langauge",
-  //     "Title",
-  //     "Desc",
-  //     "Category",
-  //     "Type",
-  //     undefined,
-  //     "",
-  //     undefined,
-  //     undefined,
-  //     undefined
-  //   ),
-  //   createData(
-  //     "6",
-  //     "Langauge",
-  //     "Title",
-  //     "Desc",
-  //     "Category",
-  //     "Type",
-  //     undefined,
-  //     "",
-  //     undefined,
-  //     undefined,
-  //     undefined
-  //   ),
-  //   createData(
-  //     "7",
-  //     "Langauge",
-  //     "Title",
-  //     "Desc",
-  //     "Category",
-  //     "Type",
-  //     undefined,
-  //     "",
-  //     undefined,
-  //     undefined,
-  //     undefined
-  //   ),
-  // ];
 
   return (
     <div className="">
@@ -176,33 +47,34 @@ export function Dashboard({ setIsLoggedIn }: any) {
             </Button>
           </TabList>
         </Box>
-        <Box
-          sx={{ margin: "5px 50px 5px 0px" }}
-          display="flex"
-          justifyItems={"flex-end"}
+        <p
+          style={{
+            color: "#4486A3",
+            fontSize: "24px",
+            margin: "0px 0px 0px 20px",
+            fontWeight: "bold",
+          }}
         >
-          <p
-            style={{
-              color: "#4486A3",
-              fontSize: "24px",
-              margin: "0px 0px 0px 20px",
-              fontWeight: "bold",
-            }}
-          >
-            {pageText[Number(value) - 1]}
-          </p>
-          <Button
-            sx={{ marginLeft: "auto" }}
-            className="resourceBtn"
-            variant="contained"
-            style={{ backgroundColor: "#4486A3" }}
-            onClick={handleClickOpen}
-          >
-            Add Resources
-          </Button>
-        </Box>
+          {pageText[Number(value) - 1]}
+        </p>
+
         <TabPanel value="1">
-          <CollapsibleTable rows={rows}></CollapsibleTable>
+          <Box
+            sx={{ margin: "0px 0px 5px 0px" }}
+            display="flex"
+            justifyItems={"flex-end"}
+          >
+            <Button
+              sx={{ marginLeft: "auto" }}
+              className="resourceBtn"
+              variant="contained"
+              style={{ backgroundColor: "#4486A3" }}
+              onClick={handleClickAddResource}
+            >
+              Add Resources
+            </Button>
+          </Box>
+          <CollapsibleTable></CollapsibleTable>
         </TabPanel>
         <TabPanel value="2">Banners</TabPanel>
         <TabPanel value="3">Settings</TabPanel>
