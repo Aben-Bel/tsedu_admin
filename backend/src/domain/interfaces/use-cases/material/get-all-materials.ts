@@ -1,5 +1,9 @@
 import { Material } from '../../../entities/material/interface/material';
 
+export interface QueryI {
+  limit: number;
+  skip: number;
+}
 export interface GetAllMaterialsUseCase {
-  execute(): Promise<Material[]>;
+  execute(query: QueryI): Promise<Material[]>;
 }

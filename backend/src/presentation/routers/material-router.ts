@@ -19,8 +19,15 @@ export default function MaterialRouter(
 
   router.get('/', async (req: Request, res: Response) => {
     try {
-      const materials = await getAllMaterialsUseCase.execute();
-
+      const { limit = '5', skip = '0' } = req.query as {
+        limit: string;
+        skip: string;
+      };
+      console.log('limit: ', limit, 'skip: ', skip);
+      const materials = await getAllMaterialsUseCase.execute({
+        limit: parseInt(limit),
+        skip: parseInt(skip)
+      });
       res.send(
         materials.map((item) => ({
           ...item

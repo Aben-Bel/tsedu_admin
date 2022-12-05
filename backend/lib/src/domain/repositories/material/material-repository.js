@@ -14,6 +14,11 @@ class MaterialRepositoryImpl {
     constructor(materialDataSource) {
         this.materialDataSource = materialDataSource;
     }
+    getMaterials(query) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.materialDataSource.getAll(query);
+        });
+    }
     deleteMaterial(id) {
         return __awaiter(this, void 0, void 0, function* () {
             yield this.materialDataSource.deleteOne(id);
@@ -34,12 +39,6 @@ class MaterialRepositoryImpl {
     createMaterial(material) {
         return __awaiter(this, void 0, void 0, function* () {
             const result = yield this.materialDataSource.create(material);
-            return result;
-        });
-    }
-    getMaterials() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.materialDataSource.getAll();
             return result;
         });
     }

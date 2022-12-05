@@ -34,7 +34,7 @@ describe('Get All Materials Use Case', () => {
       {
         id: '',
         title: '',
-        language:'',
+        language: '',
         description: '',
         category: '',
         type: '',
@@ -49,7 +49,10 @@ describe('Get All Materials Use Case', () => {
       .spyOn(mockMaterialRepository, 'getMaterials')
       .mockImplementation(() => Promise.resolve(ExpectedResult));
     const getAllMaterialsUsecase = new GetAllMaterials(mockMaterialRepository);
-    const result = await getAllMaterialsUsecase.execute();
+    const result = await getAllMaterialsUsecase.execute({
+      limit: 0,
+      skip: 0
+    });
     expect(result).toStrictEqual(ExpectedResult);
   });
 });

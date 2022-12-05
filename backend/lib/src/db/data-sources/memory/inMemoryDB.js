@@ -7,6 +7,9 @@ class DB {
         this.materials = [];
         this.idCount = 0;
     }
+    get(query) {
+        throw new Error('Method not implemented.');
+    }
     getOne(id) {
         for (const m of this.materials) {
             if (m.id == id) {
@@ -45,7 +48,11 @@ class DB {
         }
     }
     find(query) {
-        return Promise.resolve(this.materials);
+        const { limit = 5, skip = 0 } = query;
+        console.log(limit, skip);
+        const start = Math.min(limit * skip, this.materials.length - 1);
+        const end = Math.min(limit * skip + limit, this.materials.length);
+        return Promise.resolve(this.materials.slice(start, end));
     }
     insertOne(doc) {
         doc.id = this.idCount;

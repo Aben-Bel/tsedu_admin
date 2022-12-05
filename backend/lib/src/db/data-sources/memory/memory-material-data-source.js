@@ -14,6 +14,11 @@ class MemoryMaterialDataSource {
     constructor(database) {
         this.database = database;
     }
+    getAll(query) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.database.find(query);
+        });
+    }
     getOne(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const result = yield this.database.getOne(id);
@@ -35,12 +40,6 @@ class MemoryMaterialDataSource {
         return __awaiter(this, void 0, void 0, function* () {
             const result = yield this.database.insertOne(material);
             return result;
-        });
-    }
-    getAll() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.database.find({});
-            return result.map((item) => item);
         });
     }
 }

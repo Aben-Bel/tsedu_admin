@@ -1,8 +1,12 @@
 import { Material } from '../../../domain/entities/material/interface/material';
 import { MaterialModel } from '../../../domain/entities/material/model/material';
+import { QueryI } from '../../../domain/interfaces/use-cases/material/get-all-materials';
 import { DatabaseWrapper } from '../../interfaces/database';
 
 export class DB implements DatabaseWrapper {
+  get(query: QueryI): Material[] | PromiseLike<Material[]> {
+    throw new Error('Method not implemented.');
+  }
   private materials: Material[] = [];
   private idCount = 0;
 
@@ -42,8 +46,12 @@ export class DB implements DatabaseWrapper {
     }
   }
 
-  find(query: object): Promise<any[]> {
-    return Promise.resolve(this.materials);
+  find(query: QueryI): Promise<any[]> {
+    const { limit = 5, skip = 0 } = query;
+    console.log(limit, skip);
+    const start = Math.min(limit * skip, this.materials.length - 1);
+    const end = Math.min(limit * skip + limit, this.materials.length);
+    return Promise.resolve(this.materials.slice(start, end));
   }
 
   insertOne(doc: any): Promise<any> {

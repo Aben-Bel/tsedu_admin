@@ -52,7 +52,10 @@ describe('Get All Materials Use Case', () => {
             .spyOn(mockMaterialRepository, 'getMaterials')
             .mockImplementation(() => Promise.resolve(ExpectedResult));
         const getAllMaterialsUsecase = new material_get_all_materials_1.GetAllMaterials(mockMaterialRepository);
-        const result = yield getAllMaterialsUsecase.execute();
+        const result = yield getAllMaterialsUsecase.execute({
+            limit: 0,
+            skip: 0
+        });
         expect(result).toStrictEqual(ExpectedResult);
     }));
 });

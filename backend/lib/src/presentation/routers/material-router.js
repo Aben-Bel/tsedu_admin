@@ -19,7 +19,12 @@ function MaterialRouter(getAllMaterialsUseCase, createMaterialUseCase, udpateMat
     const file = (0, multer_1.default)();
     router.get('/', (req, res) => __awaiter(this, void 0, void 0, function* () {
         try {
-            const materials = yield getAllMaterialsUseCase.execute();
+            const { limit = '5', skip = '0' } = req.query;
+            console.log('limit: ', limit, 'skip: ', skip);
+            const materials = yield getAllMaterialsUseCase.execute({
+                limit: parseInt(limit),
+                skip: parseInt(skip)
+            });
             res.send(materials.map((item) => (Object.assign({}, item))));
         }
         catch (err) {

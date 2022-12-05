@@ -14,9 +14,9 @@ class GetAllMaterials {
     constructor(materialRepository) {
         this.materialRepository = materialRepository;
     }
-    execute() {
+    execute(query) {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.materialRepository.getMaterials();
+            const result = yield this.materialRepository.getMaterials(query);
             return result;
         });
     }
