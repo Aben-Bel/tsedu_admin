@@ -1,11 +1,11 @@
-import { MaterialDataSource } from '../../../domain/interfaces/data-sources/material/material-data-source';
-import { DatabaseWrapper } from '../../interfaces/database';
-import { Material } from '../../../domain/entities/material/interface/material';
-import { QueryI } from '../../../domain/interfaces/use-cases/material/get-all-materials';
+import { MaterialDataSource } from '../../../../domain/interfaces/data-sources/material/material-data-source';
+import { DatabaseMaterial } from '../../../interfaces/database-material';
+import { Material } from '../../../../domain/entities/material/interface/material';
+import { QueryI } from '../../../../domain/interfaces/use-cases/material/get-all-materials';
 
 export class MemoryMaterialDataSource implements MaterialDataSource {
-  private database: DatabaseWrapper;
-  constructor(database: DatabaseWrapper) {
+  private database: DatabaseMaterial;
+  constructor(database: DatabaseMaterial) {
     this.database = database;
   }
   async getAll(query: QueryI): Promise<Material[]> {

@@ -1,9 +1,9 @@
-import { Material } from '../../../domain/entities/material/interface/material';
-import { MaterialModel } from '../../../domain/entities/material/model/material';
-import { QueryI } from '../../../domain/interfaces/use-cases/material/get-all-materials';
-import { DatabaseWrapper } from '../../interfaces/database';
+import { Material } from "../../../../domain/entities/material/interface/material";
+import { MaterialModel } from "../../../../domain/entities/material/model/material";
+import { QueryI } from "../../../../domain/interfaces/use-cases/material/get-all-materials";
+import { DatabaseMaterial } from "../../../interfaces/database-material";
 
-export class DB implements DatabaseWrapper {
+export class DB_Memory_Material implements DatabaseMaterial {
   get(query: QueryI): Material[] | PromiseLike<Material[]> {
     throw new Error('Method not implemented.');
   }
