@@ -1,25 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Box, Button, Tab } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import CollapsibleTable from "./subpages/material/components/CustomTable";
 import "./Dashboard.css";
-import { FormDialogAddResource } from "./subpages/material/components/FormDialogAddResource";
-import { materialProvider } from "../../provider/material";
+import { Banners } from "./subpages/banner/Banners";
+import { Resource } from "./subpages/material/Resource";
 
 export function Dashboard({ setIsLoggedIn }: any) {
   const [value, setValue] = useState("1");
-  const [open, setOpen] = useState(false);
-  const [rows, setRows] = useState<any[]>([]);
 
   const pageText = ["Resource Upload", "Banner Upload", "Change Password"];
-
-  const handleClickAddResource = () => {
-    setOpen(true);
-  };
-
-  useEffect(() => {
-    setRows([]);
-  }, []);
 
   function handleChange(e: React.SyntheticEvent, newValue: string): void {
     setValue(newValue);
@@ -27,7 +16,6 @@ export function Dashboard({ setIsLoggedIn }: any) {
 
   return (
     <div className="">
-      <FormDialogAddResource open={open} setOpen={setOpen} />
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <TabList className="tabList" onChange={handleChange}>
@@ -59,24 +47,11 @@ export function Dashboard({ setIsLoggedIn }: any) {
         </p>
 
         <TabPanel value="1">
-          <Box
-            sx={{ margin: "0px 0px 5px 0px" }}
-            display="flex"
-            justifyItems={"flex-end"}
-          >
-            <Button
-              sx={{ marginLeft: "auto" }}
-              className="resourceBtn"
-              variant="contained"
-              style={{ backgroundColor: "#4486A3" }}
-              onClick={handleClickAddResource}
-            >
-              Add Resources
-            </Button>
-          </Box>
-          <CollapsibleTable></CollapsibleTable>
+          <Resource />
         </TabPanel>
-        <TabPanel value="2">Banners</TabPanel>
+        <TabPanel value="2">
+          <Banners></Banners>
+        </TabPanel>
         <TabPanel value="3">Settings</TabPanel>
       </TabContext>
     </div>

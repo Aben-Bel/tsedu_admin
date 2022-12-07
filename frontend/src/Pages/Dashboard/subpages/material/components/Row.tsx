@@ -47,7 +47,7 @@ export function Row(props: { row: any }) {
   };
 
   return (
-    <React.Fragment>
+    <div>
       <AlertDialog
         open={alertOpen}
         setOpen={setAlertOpen}
@@ -185,6 +185,6 @@ export function Row(props: { row: any }) {
           </Collapse>
         </TableCell>
       </TableRow>
-    </React.Fragment>
+    </div>
   );
 }

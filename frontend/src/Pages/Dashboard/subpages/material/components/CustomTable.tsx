@@ -81,7 +81,9 @@ export default function CollapsibleTable() {
                 </p>
               </TableRow>
             ) : (
-              rows.map((row: any) => <Row key={Number(row.id)} row={row} />)
+              rows.map((row: any) => (
+                <Row key={Number(row.id)} row={row} />
+              ))
             )}
           </TableBody>
         </Table>
