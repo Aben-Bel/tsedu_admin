@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Material } from "../models/material/material";
 import { MaterialModel } from "../models/material/MaterialModel";
+import { getToken } from "../utils/getToken";
 import { API } from "./API-interface";
 
 export class axiosApiMaterial implements API {
@@ -8,7 +9,9 @@ export class axiosApiMaterial implements API {
   async get(query: any): Promise<any[]> {
     const { page, rowsPerPage } = query;
     const results: any[] = await axios
-      .get(this.base_url + "?limit=" + rowsPerPage + "&skip=" + page)
+      .get(this.base_url + "?limit=" + rowsPerPage + "&skip=" + page, {
+        headers: { authorization: `Bearer ${getToken()}` },
+      })
       .then((res) => res.data);
     const materials = results.map(
       (item: Material) =>
@@ -44,7 +47,10 @@ export class axiosApiMaterial implements API {
       method: "post",
       url: this.base_url,
       data: bodyFormData,
-      headers: { "Content-Type": "multipart/form-data" },
+      headers: {
+        "Content-Type": "multipart/form-data",
+        authorization: `Bearer ${getToken()}`,
+      },
     });
   }
 
@@ -69,10 +75,15 @@ export class axiosApiMaterial implements API {
       method: "put",
       url: this.base_url + "/" + id,
       data: bodyFormData,
-      headers: { "Content-Type": "multipart/form-data" },
+      headers: {
+        "Content-Type": "multipart/form-data",
+        authorization: `Bearer ${getToken()}`,
+      },
     });
   }
   async delete(id: string): Promise<Boolean> {
-    return await axios.delete(this.base_url + "/" + id);
+    return await axios.delete(this.base_url + "/" + id, {
+      headers: { authorization: `Bearer ${getToken()}` },
+    });
   }
 }

@@ -22,7 +22,7 @@ export default function CollapsibleTable() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [rows, setRows] = useState<any[]>([]);
-  const [open, setOpen] = useState(false);
+
   const [alertOpen, setAlertOpen] = useState(false);
   const [deleteRes, setDeleteRes] = useState({});
   const [editFormOpen, setEditFormOpen] = useState(false);
@@ -114,143 +114,11 @@ export default function CollapsibleTable() {
               </span>
             ) : (
               rows.map((row: any) => (
-                <>
-                  <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
-                    <TableCell>
-                      <IconButton
-                        aria-label="expand row"
-                        size="small"
-                        onClick={() => {
-                          console.log();
-                          setOpen(!open);
-                        }}
-                      >
-                        {open ? (
-                          <KeyboardArrowUpIcon />
-                        ) : (
-                          <KeyboardArrowDownIcon />
-                        )}
-                      </IconButton>
-                    </TableCell>
-                    <TableCell component="th" scope="row">
-                      {row.id}
-                    </TableCell>
-                    <TableCell align="left">{row.language}</TableCell>
-                    <TableCell align="left">{row.title}</TableCell>
-                    <TableCell align="left">{row.description}</TableCell>
-                    <TableCell align="left">{row.category}</TableCell>
-                    <TableCell align="left">{row.type}</TableCell>
-                    <TableCell align="center" style={{ width: "60px" }}>
-                      <IconButton
-                        onClick={() => {
-                          handleEditClick(row);
-                        }}
-                      >
-                        <EditIcon style={{ color: "#4486A3" }} />
-                      </IconButton>
-                    </TableCell>
-                    <TableCell align="center" style={{ width: "60px" }}>
-                      <IconButton
-                        onClick={() => {
-                          handleClickOpen({ title: row.title, id: row.id });
-                        }}
-                      >
-                        <DeleteIcon
-                          style={{ color: "#4486A3", fontWeight: "30px" }}
-                        />
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell
-                      style={{ paddingBottom: 0, paddingTop: 0 }}
-                      colSpan={6}
-                    >
-                      <Collapse in={open} timeout="auto" unmountOnExit>
-                        <Box sx={{ margin: 1 }}>
-                          <Typography variant="h6" gutterBottom component="div">
-                            Files
-                          </Typography>
-                          <Table size="small" aria-label="purchases">
-                            <TableHead>
-                              <TableRow>
-                                <TableCell align="left">Video</TableCell>
-                                <TableCell align="left">Video Link</TableCell>
-                                <TableCell align="left">Book</TableCell>
-                                <TableCell align="left">Audio</TableCell>
-                                <TableCell align="left">Thumbnail</TableCell>
-                              </TableRow>
-                            </TableHead>
-                            <TableBody>
-                              <TableRow>
-                                <TableCell align="left">
-                                  {typeof window !== "undefined" &&
-                                  row.video ? (
-                                    <a
-                                      href={constructObjectURL(row.video)}
-                                      download={row.video.originalname}
-                                    >
-                                      {row.video.originalname}
-                                    </a>
-                                  ) : (
-                                    <div>No data</div>
-                                  )}
-                                </TableCell>
-                                <TableCell align="left">
-                                  {row.videoLink ? (
-                                    <a href={row.videoLink} />
-                                  ) : (
-                                    <div>No Link</div>
-                                  )}
-                                </TableCell>
-
-                                <TableCell align="left">
-                                  {typeof window !== "undefined" && row.book ? (
-                                    <a
-                                      href={constructObjectURL(row.book)}
-                                      download={row.book.originalname}
-                                    >
-                                      {row.book.originalname}
-                                    </a>
-                                  ) : (
-                                    <div>No data</div>
-                                  )}
-                                </TableCell>
-                                <TableCell align="left">
-                                  {typeof window !== "undefined" &&
-                                  row.audio ? (
-                                    <a
-                                      href={constructObjectURL(row.audio)}
-                                      download={row.audio.originalname}
-                                    >
-                                      {row.audio.originalname}
-                                    </a>
-                                  ) : (
-                                    <div>No data</div>
-                                  )}
-                                </TableCell>
-                                <TableCell align="left">
-                                  {typeof window !== "undefined" &&
-                                  typeof row.thumbnail ===
-                                    typeof { buffer: { data: ArrayBuffer } } ? (
-                                    <a
-                                      href={constructObjectURL(row.thumbnail)}
-                                      download={row.thumbnail.originalname}
-                                    >
-                                      {row.thumbnail.originalname}
-                                    </a>
-                                  ) : (
-                                    <div>No data</div>
-                                  )}
-                                </TableCell>
-                              </TableRow>
-                            </TableBody>
-                          </Table>
-                        </Box>
-                      </Collapse>
-                    </TableCell>
-                  </TableRow>
-                </>
+                <Row
+                  row={row}
+                  handleEditClick={handleEditClick}
+                  handleClickOpen={handleClickOpen}
+                />
               ))
             )}
           </TableBody>
@@ -266,5 +134,136 @@ export default function CollapsibleTable() {
         />
       </TableContainer>
     </div>
+  );
+}
+function Row(props: any) {
+  const { row, handleClickOpen, handleEditClick } = props;
+  const [open, setOpen] = useState(false);
+  return (
+    <React.Fragment>
+      <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
+        <TableCell>
+          <IconButton
+            aria-label="expand row"
+            size="small"
+            onClick={() => {
+              setOpen(!open);
+            }}
+          >
+            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          </IconButton>
+        </TableCell>
+        <TableCell component="th" scope="row">
+          {row.id}
+        </TableCell>
+        <TableCell align="left">{row.language}</TableCell>
+        <TableCell align="left">{row.title}</TableCell>
+        <TableCell align="left">{row.description}</TableCell>
+        <TableCell align="left">{row.category}</TableCell>
+        <TableCell align="left">{row.type}</TableCell>
+        <TableCell align="center" style={{ width: "60px" }}>
+          <IconButton
+            onClick={() => {
+              handleEditClick(row);
+            }}
+          >
+            <EditIcon style={{ color: "#4486A3" }} />
+          </IconButton>
+        </TableCell>
+        <TableCell align="center" style={{ width: "60px" }}>
+          <IconButton
+            onClick={() => {
+              handleClickOpen({ title: row.title, id: row.id });
+            }}
+          >
+            <DeleteIcon style={{ color: "#4486A3", fontWeight: "30px" }} />
+          </IconButton>
+        </TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <Box sx={{ margin: 1 }}>
+              <Typography variant="h6" gutterBottom component="div">
+                Files
+              </Typography>
+              <Table size="small" aria-label="purchases">
+                <TableHead>
+                  <TableRow>
+                    <TableCell align="left">Video</TableCell>
+                    <TableCell align="left">Video Link</TableCell>
+                    <TableCell align="left">Book</TableCell>
+                    <TableCell align="left">Audio</TableCell>
+                    <TableCell align="left">Thumbnail</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  <TableRow>
+                    <TableCell align="left">
+                      {typeof window !== "undefined" && row.video ? (
+                        <a
+                          href={constructObjectURL(row.video)}
+                          download={row.video.originalname}
+                        >
+                          {row.video.originalname}
+                        </a>
+                      ) : (
+                        <div>No data</div>
+                      )}
+                    </TableCell>
+                    <TableCell align="left">
+                      {row.videoLink ? (
+                        <a href={row.videoLink} />
+                      ) : (
+                        <div>No Link</div>
+                      )}
+                    </TableCell>
+
+                    <TableCell align="left">
+                      {typeof window !== "undefined" && row.book ? (
+                        <a
+                          href={constructObjectURL(row.book)}
+                          download={row.book.originalname}
+                        >
+                          {row.book.originalname}
+                        </a>
+                      ) : (
+                        <div>No data</div>
+                      )}
+                    </TableCell>
+                    <TableCell align="left">
+                      {typeof window !== "undefined" && row.audio ? (
+                        <a
+                          href={constructObjectURL(row.audio)}
+                          download={row.audio.originalname}
+                        >
+                          {row.audio.originalname}
+                        </a>
+                      ) : (
+                        <div>No data</div>
+                      )}
+                    </TableCell>
+                    <TableCell align="left">
+                      {typeof window !== "undefined" &&
+                      typeof row.thumbnail ===
+                        typeof { buffer: { data: ArrayBuffer } } ? (
+                        <a
+                          href={constructObjectURL(row.thumbnail)}
+                          download={row.thumbnail.originalname}
+                        >
+                          {row.thumbnail.originalname}
+                        </a>
+                      ) : (
+                        <div>No data</div>
+                      )}
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </Box>
+          </Collapse>
+        </TableCell>
+      </TableRow>
+    </React.Fragment>
   );
 }

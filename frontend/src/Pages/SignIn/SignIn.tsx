@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { userProvider } from "../../provider/user-provider";
 import "./SignIn.css";
 
 interface loginState {
@@ -8,17 +9,25 @@ export function SignIn({ setIsLoggedIn }: loginState) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  function handleLoginClick(e: any) {
+  async function handleLoginClick(e: any) {
     if (email !== "" && password !== "") {
-      console.log("logged in");
-      setIsLoggedIn(true);
+      userProvider.login({ email, password }).then((token) => {
+        if (token) {
+          sessionStorage.setItem("token", JSON.stringify(token));
+          setIsLoggedIn(true);
+        }
+      });
     }
   }
 
   return (
     <div className="login-form">
       <h1>Login</h1>
-      <form>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+      >
         <p>Email</p>
         <input
           type="text"
@@ -30,7 +39,7 @@ export function SignIn({ setIsLoggedIn }: loginState) {
         />
         <p>Password</p>
         <input
-          type="text"
+          type="password"
           onChange={(e: any) => {
             setPassword(e.target.value);
           }}

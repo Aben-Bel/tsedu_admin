@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getToken } from "../utils/getToken";
 import { API } from "./API-interface";
 
 export class axiosApiBanner implements API {
@@ -6,7 +7,9 @@ export class axiosApiBanner implements API {
   async get(query: any): Promise<any> {
     try {
       const results: any = await axios
-        .get(this.base_url)
+        .get(this.base_url, {
+          headers: { authorization: `Bearer ${getToken()}` },
+        })
         .then((res) => res.data);
       return Promise.resolve(results);
     } catch (e) {
@@ -22,12 +25,17 @@ export class axiosApiBanner implements API {
       method: "post",
       url: this.base_url,
       data: bodyFormData,
-      headers: { "Content-Type": "multipart/form-data" },
+      headers: {
+        "Content-Type": "multipart/form-data",
+        authorization: `Bearer ${getToken()}`,
+      },
     });
   }
 
   async delete(id: string): Promise<Boolean> {
-    return await axios.delete(this.base_url + "/");
+    return await axios.delete(this.base_url + "/", {
+      headers: { authorization: `Bearer ${getToken()}` },
+    });
   }
 
   getById(id: string): Promise<Object> {

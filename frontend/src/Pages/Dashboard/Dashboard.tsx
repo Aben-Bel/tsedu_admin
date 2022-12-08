@@ -28,6 +28,7 @@ export function Dashboard({ setIsLoggedIn }: any) {
                 color: "#4486A3",
               }}
               onClick={() => {
+                sessionStorage.removeItem("token");
                 setIsLoggedIn(false);
               }}
             >
