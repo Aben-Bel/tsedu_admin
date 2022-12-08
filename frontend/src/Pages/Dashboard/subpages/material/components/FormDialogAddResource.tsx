@@ -5,14 +5,20 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { materialProvider } from "../../../../../provider/material";
+import { materialProvider } from "../../../../../provider/material-provider";
 import useForm from "../../../../../hooks/useForm";
 import { validateAddResource } from "../validation/addResourceValidation";
+import { refreshPage } from "../../../../../utils/refreshPage";
 
 export function FormDialogAddResource({ open, setOpen }: any) {
   const [formData, setFormData] = useState({});
   const submitFrom = () => {
-    materialProvider.createMaterial({ ...values, ...formData } as any);
+    materialProvider
+      .createMaterial({ ...values, ...formData } as any)
+      .then(() => {
+        refreshPage();
+      });
+
     setOpen(false);
   };
 

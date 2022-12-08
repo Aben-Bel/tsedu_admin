@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button } from "@mui/material";
 import AlertDialogBanner from "./components/AlertDialogDeleteBanner";
 import { FormDialogAddBanner } from "./components/FormDialogAddBanner";
+import { bannerProvider } from "../../../../provider/banner-provider";
+import { constructObjectURL } from "../../../../utils/contructObjectURL";
 
 export function Banners() {
   const [image, setImage] = useState("");
@@ -10,6 +12,21 @@ export function Banners() {
   const handleClickAddBanner = () => {
     setOpen(true);
   };
+
+  useEffect(() => {
+    try {
+      bannerProvider.get({}).then((data: any) => {
+        if (data && data.banner) {
+          const src = constructObjectURL(data.banner);
+          setImage(src);
+        } else {
+          setImage("");
+        }
+      });
+    } catch (e) {
+      setImage("");
+    }
+  }, [open, alertOpen]);
 
   return (
     <div>

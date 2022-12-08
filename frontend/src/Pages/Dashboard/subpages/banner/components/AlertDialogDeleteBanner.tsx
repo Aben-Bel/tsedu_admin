@@ -5,10 +5,11 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { materialProvider } from "../../../../../provider/material";
+import { bannerProvider } from "../../../../../provider/banner-provider";
 
 export default function AlertDialogBanner({ open, setOpen }: any) {
   const handleClose = async (data: any) => {
+    await bannerProvider.deleteBanner('');
     setOpen(false);
   };
 

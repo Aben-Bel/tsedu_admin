@@ -5,7 +5,8 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { materialProvider } from "../../../../../provider/material";
+import { materialProvider } from "../../../../../provider/material-provider";
+import { refreshPage } from "../../../../../utils/refreshPage";
 
 export default function AlertDialog({ open, setOpen, data }: any) {
   const handleClose = async (data: any) => {

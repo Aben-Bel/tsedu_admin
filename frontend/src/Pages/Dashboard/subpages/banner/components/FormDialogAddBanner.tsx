@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { Button } from "@mui/material";
-import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import { materialProvider } from "../../../../../provider/material";
+import { bannerProvider } from "../../../../../provider/banner-provider";
 
 export function FormDialogAddBanner({ open, setOpen }: any) {
-  const [formData, setFormData] = useState({});
-  const submitFrom = () => {
+  const [formData, setFormData] = useState<any>({});
+  const submitFrom = async () => {
+    await bannerProvider.createBanner(formData);
     setOpen(false);
   };
 
@@ -31,7 +30,7 @@ export function FormDialogAddBanner({ open, setOpen }: any) {
           <input
             type="file"
             onChange={(e: any) => {
-              const data = { ...formData, thumbnail: e.target.files[0] };
+              const data = { ...formData, banner: e.target.files[0] };
               setFormData(data);
             }}
           />
