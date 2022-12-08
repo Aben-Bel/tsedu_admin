@@ -23,7 +23,6 @@ export default function MaterialRouter(
         limit: string;
         skip: string;
       };
-      console.log('limit: ', limit, 'skip: ', skip);
       const materials = await getAllMaterialsUseCase.execute({
         limit: parseInt(limit),
         skip: parseInt(skip)
@@ -88,7 +87,6 @@ export default function MaterialRouter(
         }
 
         const material = await createMaterialUseCase.execute(reqMaterial);
-        console.log('material: ', material);
         res.statusCode = 201;
         res.json({ message: 'Created' });
       } catch (err) {
@@ -125,7 +123,6 @@ export default function MaterialRouter(
             reqMaterial.video = materialFile.video[0];
           }
         }
-        console.log('req update: ', materialFile);
         const material = await udpateMaterialUseCase.execute(
           req.params.id,
           reqMaterial

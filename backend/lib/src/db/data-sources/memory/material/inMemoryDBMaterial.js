@@ -21,7 +21,6 @@ class DB_Memory_Material {
     updateOne(id, data) {
         for (let i = 0; i < this.materials.length; i++) {
             if (this.materials[i].id == id) {
-                console.log('material to be updated: ', this.materials[i]);
                 let res = {};
                 res = Object.assign(Object.assign({}, this.materials[i]), data);
                 if (data.video)
@@ -33,7 +32,6 @@ class DB_Memory_Material {
                 if (data.book)
                     res.book = data.book;
                 this.materials[i] = res;
-                console.log('material after updated: ', this.materials[i]);
                 return Promise.resolve(this.materials[i]);
             }
         }
@@ -49,7 +47,6 @@ class DB_Memory_Material {
     }
     find(query) {
         const { limit = 5, skip = 0 } = query;
-        console.log(limit, skip);
         const start = Math.min(limit * skip, this.materials.length - 1);
         const end = Math.min(limit * skip + limit, this.materials.length);
         return Promise.resolve(this.materials.slice(start, end));
@@ -58,7 +55,6 @@ class DB_Memory_Material {
         doc.id = this.idCount;
         this.idCount += 1;
         const created = new material_1.MaterialModel(doc);
-        console.log('added to db: ', created);
         this.materials.push(created);
         return Promise.resolve(created);
     }

@@ -1,46 +1,27 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MaterialRepositoryImpl = void 0;
 class MaterialRepositoryImpl {
     constructor(materialDataSource) {
         this.materialDataSource = materialDataSource;
     }
-    getMaterials(query) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield this.materialDataSource.getAll(query);
-        });
+    async getMaterials(query) {
+        return await this.materialDataSource.getAll(query);
     }
-    deleteMaterial(id) {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield this.materialDataSource.deleteOne(id);
-        });
+    async deleteMaterial(id) {
+        await this.materialDataSource.deleteOne(id);
     }
-    updateMaterial(id, data) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.materialDataSource.updateOne(id, data);
-            return result;
-        });
+    async updateMaterial(id, data) {
+        const result = await this.materialDataSource.updateOne(id, data);
+        return result;
     }
-    getMaterial(id) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.materialDataSource.getOne(id);
-            return result;
-        });
+    async getMaterial(id) {
+        const result = await this.materialDataSource.getOne(id);
+        return result;
     }
-    createMaterial(material) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.materialDataSource.create(material);
-            return result;
-        });
+    async createMaterial(material) {
+        const result = await this.materialDataSource.create(material);
+        return result;
     }
 }
 exports.MaterialRepositoryImpl = MaterialRepositoryImpl;

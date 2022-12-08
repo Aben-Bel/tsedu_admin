@@ -1,4 +1,5 @@
 import server from './server';
+import { NextFunction, Request, Response } from 'express';
 import MaterialRouter from './presentation/routers/material-router';
 import { MaterialRepositoryImpl } from './domain/repositories/material/material-repository';
 import { CreateMaterial } from './domain/use-cases/material/material-create-material';
@@ -15,7 +16,15 @@ import { BannerRepositoryImpl } from './domain/repositories/banner/banner-reposi
 import { MemoryBannerDataSource } from './db/data-sources/memory/banner/memory-banner-datasource';
 import { DB_Memory_Banner } from './db/data-sources/memory/banner/inMemoryDBBanner';
 import { DB_Memory_Material } from './db/data-sources/memory/material/inMemoryDBMaterial';
-
+import { DB_MEMORY_USER } from './db/data-sources/memory/user/inMemoryDBUser';
+import { UserRepositoryImpl } from './domain/repositories/user/user-repository';
+import { MemoryUserDataSource } from './db/data-sources/memory/user/memory-user-interface';
+import UserRouter from './presentation/routers/user-router';
+import { LoginUsecase } from './domain/use-cases/user/login-user-usecase';
+import { SignupUsecase } from './domain/use-cases/user/signup-user-usecase';
+import { Hasher } from './services/HasherService';
+import { TokenService } from './services/TokenService';
+import { User } from './domain/entities/material/interface/user';
 (async () => {
   const materialDB = new DB_Memory_Material();
   const materialRepository = new MaterialRepositoryImpl(
@@ -36,8 +45,36 @@ import { DB_Memory_Material } from './db/data-sources/memory/material/inMemoryDB
     new CreateBanner(bannerRepository),
     new DeleteBanner(bannerRepository)
   );
+
+  const userDB = new DB_MEMORY_USER();
+  const hashService = new Hasher();
+  const tokenService = new TokenService();
+  const userRepository = new UserRepositoryImpl(
+    new MemoryUserDataSource(userDB)
+  );
+  const userMiddleWare = UserRouter(
+    new LoginUsecase(userRepository, tokenService, hashService),
+    new SignupUsecase(userRepository, tokenService, hashService)
+  );
+
+  const authGuard = (req: Request, res: Response, next: NextFunction) => {
+    const authToken = req.get('authorization');
+    if (authToken) {
+      const token = authToken.split(' ')[1];
+      const result: any = tokenService.decode(token);
+      const user: any = userDB.get(result.email);
+      if (user) {
+        next();
+      } else {
+        return res.status(401).json({ error: 'not authorized' });
+      }
+    } else {
+      return res.status(403).json({ error: 'No credentials' });
+    }
+  };
   const PORT = 4545;
-  server.use('/material', materialMiddleWare);
-  server.use('/banner', bannerMiddleWare);
+  server.use('/material', authGuard, materialMiddleWare);
+  server.use('/banner', authGuard, bannerMiddleWare);
+  server.use('/user', userMiddleWare);
   server.listen(PORT, () => console.log(`Running Server at port: ${PORT}`));
 })();

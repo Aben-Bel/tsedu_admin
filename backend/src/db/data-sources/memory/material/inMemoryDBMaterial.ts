@@ -22,7 +22,6 @@ export class DB_Memory_Material implements DatabaseMaterial {
   updateOne(id: String, data: any): Promise<any> {
     for (let i = 0; i < this.materials.length; i++) {
       if (this.materials[i].id == id) {
-        console.log('material to be updated: ', this.materials[i]);
         let res: any = {};
         res = { ...this.materials[i], ...data };
         if (data.video) res.video = data.video;
@@ -30,7 +29,6 @@ export class DB_Memory_Material implements DatabaseMaterial {
         if (data.thumbnail) res.thumbnail = data.thumbnail;
         if (data.book) res.book = data.book;
         this.materials[i] = res;
-        console.log('material after updated: ', this.materials[i]);
         return Promise.resolve(this.materials[i]);
       }
     }
@@ -48,7 +46,6 @@ export class DB_Memory_Material implements DatabaseMaterial {
 
   find(query: QueryI): Promise<any[]> {
     const { limit = 5, skip = 0 } = query;
-    console.log(limit, skip);
     const start = Math.min(limit * skip, this.materials.length - 1);
     const end = Math.min(limit * skip + limit, this.materials.length);
     return Promise.resolve(this.materials.slice(start, end));
@@ -58,7 +55,6 @@ export class DB_Memory_Material implements DatabaseMaterial {
     doc.id = this.idCount;
     this.idCount += 1;
     const created = new MaterialModel(doc);
-    console.log('added to db: ', created);
     this.materials.push(created);
     return Promise.resolve(created);
   }
