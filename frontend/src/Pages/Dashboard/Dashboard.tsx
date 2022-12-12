@@ -4,11 +4,13 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import "./Dashboard.css";
 import { Banners } from "./subpages/banner/Banners";
 import { Resource } from "./subpages/material/Resource";
+import AddResources from "./subpages/addResources/AddResource";
+import SettingPage from "./subpages/setting/SettingsPage";
 
 export function Dashboard({ setIsLoggedIn }: any) {
   const [value, setValue] = useState("1");
 
-  const pageText = ["Resource Upload", "Banner Upload", "Change Password"];
+  const pageText = ["Resource Upload", "", "Banner Upload", ""];
 
   function handleChange(e: React.SyntheticEvent, newValue: string): void {
     setValue(newValue);
@@ -20,8 +22,9 @@ export function Dashboard({ setIsLoggedIn }: any) {
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <TabList className="tabList" onChange={handleChange}>
             <Tab className="tabItem" label="Resources" value="1" />
-            <Tab className="tabItem" label="Banners" value="2" />
-            <Tab className="tabItem" label="Settings" value="3" />
+            <Tab className="tabItem" label="Add Resources" value="2" />
+            <Tab className="tabItem" label="Banners" value="3" />
+            <Tab className="tabItem" label="Settings" value="4" />
             <Button
               style={{
                 marginLeft: "auto",
@@ -51,9 +54,14 @@ export function Dashboard({ setIsLoggedIn }: any) {
           <Resource />
         </TabPanel>
         <TabPanel value="2">
+          <AddResources></AddResources>
+        </TabPanel>
+        <TabPanel value="3">
           <Banners></Banners>
         </TabPanel>
-        <TabPanel value="3">Settings</TabPanel>
+        <TabPanel value="4">
+          <SettingPage></SettingPage>
+        </TabPanel>
       </TabContext>
     </div>
   );

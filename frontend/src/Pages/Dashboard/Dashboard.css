@@ -1,3 +1,8 @@
+.tabList .tabItem.Mui-selected {
+  background-color: #4486a3;
+  color: white;
+}
+
 .MuiButton .uploadBtn {
   margin: 5px;
 }
