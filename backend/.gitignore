@@ -13,6 +13,7 @@
 
 # production
 /build
+/lib
 
 # local storage folder
 /public/storage
