@@ -23,6 +23,7 @@ class TokenService {
             return payload;
         }
         catch (error) {
+            console.log('error decoding token: ', error);
             return undefined;
         }
     }

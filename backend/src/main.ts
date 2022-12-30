@@ -24,7 +24,12 @@ import { LoginUsecase } from './domain/use-cases/user/login-user-usecase';
 import { SignupUsecase } from './domain/use-cases/user/signup-user-usecase';
 import { Hasher } from './services/HasherService';
 import { TokenService } from './services/TokenService';
-import { User } from './domain/entities/material/interface/user';
+import { RegistrationInMemoryDB } from './db/data-sources/memory/registration/inMemoryRegistrationDB';
+import { RegistrationRepositoryImp } from './domain/repositories/registration/registration-repository';
+import { RegistrationDatasourceImp } from './db/data-sources/memory/registration/RegistrationDataSource';
+import RegistrationRouter from './presentation/routers/registration-router';
+import { CreateRegistrationUsecaseImp } from './domain/use-cases/registration/create-registration-usecase';
+import { GetStatRegistrationImpl } from './domain/use-cases/registration/get-stat-registration-usecase';
 (async () => {
   const materialDB = new DB_Memory_Material();
   const materialRepository = new MaterialRepositoryImpl(
@@ -57,6 +62,16 @@ import { User } from './domain/entities/material/interface/user';
     new SignupUsecase(userRepository, tokenService, hashService)
   );
 
+  const registrationDB = new RegistrationInMemoryDB();
+  const regRepo = new RegistrationRepositoryImp(
+    new RegistrationDatasourceImp(registrationDB)
+  );
+
+  const registrationMiddleWare = RegistrationRouter(
+    new GetStatRegistrationImpl(regRepo),
+    new CreateRegistrationUsecaseImp(regRepo)
+  );
+
   const authGuard = (req: Request, res: Response, next: NextFunction) => {
     const authToken = req.get('authorization');
     if (authToken) {
@@ -76,5 +91,6 @@ import { User } from './domain/entities/material/interface/user';
   server.use('/material', authGuard, materialMiddleWare);
   server.use('/banner', authGuard, bannerMiddleWare);
   server.use('/user', userMiddleWare);
+  server.use('/registration', registrationMiddleWare);
   server.listen(PORT, () => console.log(`Running Server at port: ${PORT}`));
 })();

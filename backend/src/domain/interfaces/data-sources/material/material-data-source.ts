@@ -7,3 +7,4 @@ export interface MaterialDataSource {
   create(material: Material): Promise<Material>;
   getAll(query: QueryI): Promise<Material[]>;
 }
+

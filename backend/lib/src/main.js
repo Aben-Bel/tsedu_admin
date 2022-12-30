@@ -28,6 +28,12 @@ const login_user_usecase_1 = require("./domain/use-cases/user/login-user-usecase
 const signup_user_usecase_1 = require("./domain/use-cases/user/signup-user-usecase");
 const HasherService_1 = require("./services/HasherService");
 const TokenService_1 = require("./services/TokenService");
+const inMemoryRegistrationDB_1 = require("./db/data-sources/memory/registration/inMemoryRegistrationDB");
+const registration_repository_1 = require("./domain/repositories/registration/registration-repository");
+const RegistrationDataSource_1 = require("./db/data-sources/memory/registration/RegistrationDataSource");
+const registration_router_1 = __importDefault(require("./presentation/routers/registration-router"));
+const create_registration_usecase_1 = require("./domain/use-cases/registration/create-registration-usecase");
+const get_stat_registration_usecase_1 = require("./domain/use-cases/registration/get-stat-registration-usecase");
 (async () => {
     const materialDB = new inMemoryDBMaterial_1.DB_Memory_Material();
     const materialRepository = new material_repository_1.MaterialRepositoryImpl(new memory_material_data_source_1.MemoryMaterialDataSource(materialDB));
@@ -39,6 +45,9 @@ const TokenService_1 = require("./services/TokenService");
     const tokenService = new TokenService_1.TokenService();
     const userRepository = new user_repository_1.UserRepositoryImpl(new memory_user_interface_1.MemoryUserDataSource(userDB));
     const userMiddleWare = (0, user_router_1.default)(new login_user_usecase_1.LoginUsecase(userRepository, tokenService, hashService), new signup_user_usecase_1.SignupUsecase(userRepository, tokenService, hashService));
+    const registrationDB = new inMemoryRegistrationDB_1.RegistrationInMemoryDB();
+    const regRepo = new registration_repository_1.RegistrationRepositoryImp(new RegistrationDataSource_1.RegistrationDatasourceImp(registrationDB));
+    const registrationMiddleWare = (0, registration_router_1.default)(new get_stat_registration_usecase_1.GetStatRegistrationImpl(regRepo), new create_registration_usecase_1.CreateRegistrationUsecaseImp(regRepo));
     const authGuard = (req, res, next) => {
         const authToken = req.get('authorization');
         if (authToken) {
@@ -60,5 +69,6 @@ const TokenService_1 = require("./services/TokenService");
     server_1.default.use('/material', authGuard, materialMiddleWare);
     server_1.default.use('/banner', authGuard, bannerMiddleWare);
     server_1.default.use('/user', userMiddleWare);
+    server_1.default.use('/registration', registrationMiddleWare);
     server_1.default.listen(PORT, () => console.log(`Running Server at port: ${PORT}`));
 })();

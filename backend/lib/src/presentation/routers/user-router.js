@@ -16,7 +16,6 @@ function UserRouter(loginUser, signupUser) {
                 res.send({ token: token });
         }
         catch (err) {
-            console.log('login server error: ', err);
             res.status(500).send({ message: 'Error signing user' });
         }
     });
