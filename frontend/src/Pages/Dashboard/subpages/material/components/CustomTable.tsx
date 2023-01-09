@@ -213,7 +213,7 @@ function Row(props: any) {
                     </TableCell>
                     <TableCell align="left">
                       {row.videoLink ? (
-                        <a href={row.videoLink} />
+                        <a href={row.videoLink}>{row.videoLink}</a>
                       ) : (
                         <div>No Link</div>
                       )}

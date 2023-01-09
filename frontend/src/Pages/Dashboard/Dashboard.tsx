@@ -6,6 +6,7 @@ import { Banners } from "./subpages/banner/Banners";
 import { Resource } from "./subpages/material/Resource";
 import AddResources from "./subpages/addResources/AddResource";
 import SettingPage from "./subpages/setting/SettingsPage";
+import StatPage from "./subpages/stat/StatPage";
 
 export function Dashboard({ setIsLoggedIn }: any) {
   const [value, setValue] = useState("1");
@@ -24,6 +25,7 @@ export function Dashboard({ setIsLoggedIn }: any) {
             <Tab className="tabItem" label="Resources" value="1" />
             <Tab className="tabItem" label="Add Resources" value="2" />
             <Tab className="tabItem" label="Banners" value="3" />
+            <Tab className="tabItem" label="Stat" value="5" />
             <Tab className="tabItem" label="Settings" value="4" />
             <Button
               style={{
@@ -58,6 +60,9 @@ export function Dashboard({ setIsLoggedIn }: any) {
         </TabPanel>
         <TabPanel value="3">
           <Banners></Banners>
+        </TabPanel>
+        <TabPanel value="5">
+          <StatPage />
         </TabPanel>
         <TabPanel value="4">
           <SettingPage></SettingPage>

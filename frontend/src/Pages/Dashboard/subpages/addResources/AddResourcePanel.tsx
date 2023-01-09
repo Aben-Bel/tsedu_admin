@@ -1,20 +1,19 @@
 import * as React from "react";
 import Typography from "@mui/material/Typography";
 import { Button, Paper, TextField } from "@mui/material";
-import { materialProvider } from "../../../../provider/material-provider";
-import { refreshPage } from "../../../../utils/refreshPage";
 import { validateAddResource } from "../material/validation/addResourceValidation";
 import useForm from "../../../../hooks/useForm";
+import { materialProvider } from "../../../../provider/material-provider";
+import { refreshPage } from "../../../../utils/refreshPage";
 
 export function AddResourcePanel({ category }: any) {
   const [formData, setFormData] = React.useState({});
   const submitFrom = () => {
-    console.log("data panel: ", { ...values, ...formData, category: category });
-    // materialProvider
-    //   .createMaterial({ ...values, ...formData } as any)
-    //   .then(() => {
-    //     refreshPage();
-    //   });
+    materialProvider
+      .createMaterial({ ...values, ...formData, category: category } as any)
+      .then(() => {
+        refreshPage();
+      });
   };
   const { values, errors, handleChange, handleSubmit } = useForm(
     submitFrom,

@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken";
 
 function App() {
   let content;
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const token = getToken();
