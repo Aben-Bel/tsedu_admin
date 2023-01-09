@@ -6,13 +6,15 @@ import { DeleteMaterialUseCase } from '../../domain/interfaces/use-cases/materia
 import { GetAllMaterialsUseCase } from '../../domain/interfaces/use-cases/material/get-all-materials';
 import { GetOneMaterialUseCase } from '../../domain/interfaces/use-cases/material/get-one-material';
 import { UpdateMaterialUseCase } from '../../domain/interfaces/use-cases/material/update-material';
+import { PaginationMaterial } from '../../domain/interfaces/use-cases/material/pagination-material';
 
 export default function MaterialRouter(
   getAllMaterialsUseCase: GetAllMaterialsUseCase,
   createMaterialUseCase: CreateMaterialUseCase,
   udpateMaterialUseCase: UpdateMaterialUseCase,
   getOneMaterialUseCase: GetOneMaterialUseCase,
-  deleteOneMaterialUseCase: DeleteMaterialUseCase
+  deleteOneMaterialUseCase: DeleteMaterialUseCase,
+  paginationMaterialUseCase: PaginationMaterial
 ) {
   const router = express.Router();
   const file = multer();
@@ -57,6 +59,14 @@ export default function MaterialRouter(
     }
   });
 
+  router.get('/pagination/', async (req: Request, res: Response) => {
+    try {
+      const pagination = await paginationMaterialUseCase.execute();
+      res.send({ pagination });
+    } catch (err) {
+      res.status(500).send({ message: 'Error getting count of materials' });
+    }
+  });
   router.post(
     '/',
     file.fields([

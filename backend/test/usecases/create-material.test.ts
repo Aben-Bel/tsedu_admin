@@ -4,6 +4,9 @@ import { CreateMaterial } from '../../src/domain/use-cases/material/material-cre
 
 describe('Create Material Use Case', () => {
   class MockMaterialRepository implements MaterialRepository {
+    count(): Promise<Number> {
+      throw new Error('Method not implemented.');
+    }
     deleteMaterial(id: String): void {
       throw new Error('Method not implemented.');
     }

@@ -4,6 +4,7 @@ import { CreateMaterialUseCase } from '../../../src/domain/interfaces/use-cases/
 import { DeleteMaterialUseCase } from '../../../src/domain/interfaces/use-cases/material/delete-one-material';
 import { GetAllMaterialsUseCase } from '../../../src/domain/interfaces/use-cases/material/get-all-materials';
 import { GetOneMaterialUseCase } from '../../../src/domain/interfaces/use-cases/material/get-one-material';
+import { PaginationMaterial } from '../../../src/domain/interfaces/use-cases/material/pagination-material';
 import { UpdateMaterialUseCase } from '../../../src/domain/interfaces/use-cases/material/update-material';
 import MaterialRouter from '../../../src/presentation/routers/material-router';
 import server from '../../../src/server';
@@ -26,6 +27,7 @@ describe('Material Router', () => {
   let mockUpdateAllMaterialUseCase: UpdateMaterialUseCase;
   let mockGetOneMaterialUseCase: GetOneMaterialUseCase;
   let mockDeleteOneMaterialUseCase: DeleteMaterialUseCase;
+  let mockPagination : PaginationMaterial
 
   beforeAll(() => {
     mockCreateMaterialUseCase = new MockCreateMaterialUseCase();
@@ -37,7 +39,8 @@ describe('Material Router', () => {
         mockCreateMaterialUseCase,
         mockUpdateAllMaterialUseCase,
         mockGetOneMaterialUseCase,
-        mockDeleteOneMaterialUseCase
+        mockDeleteOneMaterialUseCase,
+        mockPagination
       )
     );
   });

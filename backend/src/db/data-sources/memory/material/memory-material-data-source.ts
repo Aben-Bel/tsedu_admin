@@ -8,6 +8,11 @@ export class MemoryMaterialDataSource implements MaterialDataSource {
   constructor(database: DatabaseMaterial) {
     this.database = database;
   }
+
+  async count(): Promise<Number> {
+    return await this.database.count();
+  }
+  
   async getAll(query: QueryI): Promise<Material[]> {
     return await this.database.find(query);
   }

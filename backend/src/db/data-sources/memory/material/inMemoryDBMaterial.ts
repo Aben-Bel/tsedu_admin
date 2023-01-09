@@ -1,14 +1,18 @@
-import { Material } from "../../../../domain/entities/material/interface/material";
-import { MaterialModel } from "../../../../domain/entities/material/model/material";
-import { QueryI } from "../../../../domain/interfaces/use-cases/material/get-all-materials";
-import { DatabaseMaterial } from "../../../interfaces/database-material";
+import { Material } from '../../../../domain/entities/material/interface/material';
+import { MaterialModel } from '../../../../domain/entities/material/model/material';
+import { QueryI } from '../../../../domain/interfaces/use-cases/material/get-all-materials';
+import { DatabaseMaterial } from '../../../interfaces/database-material';
 
 export class DB_Memory_Material implements DatabaseMaterial {
+  private materials: Material[] = [];
+  private idCount = 0;
+
+  count(): Number | Promise<Number> {
+    return Promise.resolve(this.materials.length);
+  }
   get(query: QueryI): Material[] | PromiseLike<Material[]> {
     throw new Error('Method not implemented.');
   }
-  private materials: Material[] = [];
-  private idCount = 0;
 
   getOne(id: String): Promise<any> {
     for (const m of this.materials) {

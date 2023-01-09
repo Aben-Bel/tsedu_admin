@@ -6,6 +6,10 @@ export class MemoryUserDataSource implements UserDataSource {
   constructor(database: DatabaseUser) {
     this.database = database;
   }
+
+  async update(email: string, password: string): Promise<any> {
+    return await this.database.update(email, password);
+  }
   async login(email: string): Promise<any> {
     return await this.database.get(email);
   }

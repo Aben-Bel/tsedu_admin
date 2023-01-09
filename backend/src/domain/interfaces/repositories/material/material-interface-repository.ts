@@ -6,4 +6,5 @@ export interface MaterialRepository {
   deleteMaterial(id: String): void;
   updateMaterial(id: String, data: Material): Promise<Material>;
   getMaterial(id: String): Promise<Material>;
+  count(): Promise<Number>;
 }

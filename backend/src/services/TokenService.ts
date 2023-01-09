@@ -21,9 +21,9 @@ export class TokenService implements TokenServiceI {
     try {
       const payload = jwt.verify(token, this.secret);
       return payload;
-    } catch (error) {
+    } catch (error: any) {
       console.log('error decoding token: ', error);
-      return undefined;
+      return Promise.resolve(undefined);
     }
   }
 }

@@ -15,4 +15,9 @@ export class UserRepositoryImpl implements UserRepository {
     const user = await this.userDatasource.signup(email, password);
     return user;
   }
+
+  async change(email: string, password: string): Promise<any> {
+    const user = await this.userDatasource.update(email, password);
+    return user;
+  }
 }

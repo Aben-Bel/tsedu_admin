@@ -9,6 +9,9 @@ export class PGMaterialDataSource implements MaterialDataSource {
   constructor(db: SQLDatabaseWrapper) {
     this.db = db;
   }
+  count(): Number | Promise<Number> {
+    throw new Error('Method not implemented.');
+  }
 
   async getOne(id: String): Promise<Material> {
     const dbResponse = await this.db.query(

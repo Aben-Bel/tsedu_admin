@@ -4,6 +4,9 @@ import { GetAllMaterials } from '../../src/domain/use-cases/material/material-ge
 
 describe('Get All Materials Use Case', () => {
   class MockMaterialRepository implements MaterialRepository {
+    count(): Promise<Number> {
+      throw new Error('Method not implemented.');
+    }
     deleteMaterial(id: String): void {
       throw new Error('Method not implemented.');
     }
