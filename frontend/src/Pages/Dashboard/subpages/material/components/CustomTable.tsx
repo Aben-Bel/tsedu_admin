@@ -46,6 +46,10 @@ export default function CollapsibleTable() {
 
   useEffect(() => {
     materialProvider.get({ page, rowsPerPage }).then((data) => {
+      // console.log("DATA: ", data);
+      // console.log("Book: ", data[0].book);
+      // console.log("Type: ", typeof data[0].book);
+      // console.log("Book.data: ", data[0].book.data);
       setRows(data.map((item) => ({ ...item })));
     });
   }, [page, rowsPerPage, editFormOpen, alertOpen]);
@@ -245,6 +249,7 @@ function Row(props: any) {
                     </TableCell>
                     <TableCell align="left">
                       {typeof window !== "undefined" &&
+                      row.thumbnail &&
                       typeof row.thumbnail ===
                         typeof { buffer: { data: ArrayBuffer } } ? (
                         <a

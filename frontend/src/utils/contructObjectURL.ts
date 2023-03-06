@@ -6,6 +6,7 @@ export function constructObjectURL(obj: any) {
       })
     );
   } catch (e) {
+    console.log("e: ", e);
     return "";
   }
 }
