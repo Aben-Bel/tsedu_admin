@@ -2,12 +2,16 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "./lib/src/main.js",
   "scripts": {
+    "build": "tsc",
+    "prestart": "npm run build",
+    "start": "node ./lib/src/main.js",
     "test": "jest --watchAll --collectCoverage",
-    "dev:build": "npx tsc -b",
+    "dev:build": "npx tsc",
     "dev:serve": "node ./lib/src/main.js",
-    "dev:start": "npm run dev:build & npm run dev:serve"
+    "dev:start": "npm run dev:build & npm run dev:serve",
+    "postinstall": "tsc"
   },
   "keywords": [],
   "author": "",
