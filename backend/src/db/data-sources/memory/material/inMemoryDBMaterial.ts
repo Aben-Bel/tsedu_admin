@@ -10,6 +10,7 @@ export class DB_Memory_Material implements DatabaseMaterial {
   count(): Number | Promise<Number> {
     return Promise.resolve(this.materials.length);
   }
+
   get(query: QueryI): Material[] | PromiseLike<Material[]> {
     throw new Error('Method not implemented.');
   }

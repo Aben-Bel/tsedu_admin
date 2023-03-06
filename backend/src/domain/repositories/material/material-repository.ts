@@ -8,6 +8,7 @@ export class MaterialRepositoryImpl implements MaterialRepository {
   constructor(materialDataSource: MaterialDataSource) {
     this.materialDataSource = materialDataSource;
   }
+  
   async count(): Promise<Number> {
     return await this.materialDataSource.count();
   }

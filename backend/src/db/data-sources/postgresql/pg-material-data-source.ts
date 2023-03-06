@@ -1,8 +1,9 @@
 import { Material } from '../../../domain/entities/material/interface/material';
+import { MaterialModel } from '../../../domain/entities/material/model/material';
 import { MaterialDataSource } from '../../../domain/interfaces/data-sources/material/material-data-source';
 import { SQLDatabaseWrapper } from '../../interfaces/sql-database-wrapper';
 
-const DB_TABLE = 'material_table';
+const DB_TABLE = 'materials';
 
 export class PGMaterialDataSource implements MaterialDataSource {
   private db: SQLDatabaseWrapper;
@@ -47,8 +48,9 @@ export class PGMaterialDataSource implements MaterialDataSource {
   }
 
   async create(material: Material): Promise<Material> {
+    console.log('material before: ', material.book);
     const dbResponse = await this.db.query(
-      `insert into ${DB_TABLE} (title, description, category, type, thumbnail, book, audio, video, videoLink) values ($1,$2,$3) `,
+      `insert into ${DB_TABLE} (title, language, description, category, type, thumbnail, book, audio, video, videoLink) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) `,
       [
         material.title,
         material.language,
@@ -63,10 +65,15 @@ export class PGMaterialDataSource implements MaterialDataSource {
       ]
     );
 
-    return Promise.resolve(dbResponse.rows.map((item) => ({} as Material))[0]);
+    const res = dbResponse.rows.map((item) => new MaterialModel(item))[0];
+    console.log('res:', res);
+    console.log('material after: ', res?.book);
+    return Promise.resolve({} as Material);
   }
 
-  getAll(): Promise<Material[]> {
-    throw new Error('Method not implemented.');
+  async getAll(): Promise<Material[]> {
+    const dbResponse = await this.db.query(`select * from ${DB_TABLE}`);
+    const results = dbResponse.rows.map((item) => new MaterialModel(item));
+    return Promise.resolve(results);
   }
 }

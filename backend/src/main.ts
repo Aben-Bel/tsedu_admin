@@ -33,11 +33,25 @@ import { GetStatRegistrationImpl } from './domain/use-cases/registration/get-sta
 import { ChangeUsecase } from './domain/use-cases/user/change-user-usercase';
 import ChangeUserRouter from './presentation/routers/change-router';
 import { PaginationMaterialImpl } from './domain/use-cases/material/material-pagination-material';
+import { Pool } from 'pg';
+import { PGMaterialDataSource } from './db/data-sources/postgresql/pg-material-data-source';
+
 (async () => {
-  const materialDB = new DB_Memory_Material();
-  const materialRepository = new MaterialRepositoryImpl(
-    new MemoryMaterialDataSource(materialDB)
-  );
+  async function getPGDS() {
+    const pgDB = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'tsedu',
+      password: 'postgres',
+      port: 5433
+    });
+
+    return new PGMaterialDataSource(pgDB);
+  }
+  const materialDB = new MemoryMaterialDataSource(new DB_Memory_Material());
+  // const materialDB = await getPGDS();
+
+  const materialRepository = new MaterialRepositoryImpl(materialDB);
   const materialMiddleWare = MaterialRouter(
     new GetAllMaterials(materialRepository),
     new CreateMaterial(materialRepository),

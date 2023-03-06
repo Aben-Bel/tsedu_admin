@@ -67,6 +67,7 @@ export default function MaterialRouter(
       res.status(500).send({ message: 'Error getting count of materials' });
     }
   });
+
   router.post(
     '/',
     file.fields([
@@ -100,6 +101,7 @@ export default function MaterialRouter(
         res.statusCode = 201;
         res.json({ message: 'Created' });
       } catch (err) {
+        console.log('Error: ', err);
         res.status(500).send({ message: 'Error saving data' });
       }
     }
