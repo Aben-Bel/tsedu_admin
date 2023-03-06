@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "test": "jest --watchAll --collectCoverage",
-    "dev:build": "tsc -b",
+    "dev:build": "npx tsc -b",
     "dev:serve": "nodemon -e js -w lib ./lib/src/main.js",
     "dev:start": "npm run dev:build & npm run dev:serve"
   },
