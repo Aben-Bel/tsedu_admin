@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest --watchAll --collectCoverage",
     "dev:build": "npx tsc -b",
-    "dev:serve": "npm -e js -w lib ./lib/src/main.js",
+    "dev:serve": "node ./lib/src/main.js",
     "dev:start": "npm run dev:build & npm run dev:serve"
   },
   "keywords": [],
