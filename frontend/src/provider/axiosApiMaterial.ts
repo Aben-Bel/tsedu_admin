@@ -5,7 +5,8 @@ import { getToken } from "../utils/getToken";
 import { API } from "./API-interface";
 
 export class axiosApiMaterial implements API {
-  private base_url = "http://localhost:4545/material";
+  // private base_url = "http://localhost:4545/material";
+  private base_url = "https://tsedu-backend.onrender.com:4545/material";
   async get(query: any): Promise<any[]> {
     const { page, rowsPerPage } = query;
     const results: any[] = await axios

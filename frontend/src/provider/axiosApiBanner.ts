@@ -3,7 +3,8 @@ import { getToken } from "../utils/getToken";
 import { API } from "./API-interface";
 
 export class axiosApiBanner implements API {
-  private base_url = "http://localhost:4545/banner";
+  // private base_url = "http://localhost:4545/banner";
+  private base_url = "https://tsedu-backend.onrender.com:4545/banner";
   async get(query: any): Promise<any> {
     try {
       const results: any = await axios
