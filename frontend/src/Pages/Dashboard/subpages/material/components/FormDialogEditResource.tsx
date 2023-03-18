@@ -12,11 +12,10 @@ import { refreshPage } from "../../../../../utils/refreshPage";
 
 export function FormDialogEditResource({ open, setOpen, data, setData }: any) {
   const submitFrom = () => {
-    materialProvider
-      .editMaterial(data.id + "", { ...data, ...values } as any)
-      // .then(() => {
-      //   refreshPage();
-      // });
+    materialProvider.editMaterial(data.id + "", { ...data, ...values } as any);
+    // .then(() => {
+    //   refreshPage();
+    // });
     setOpen(false);
   };
 
@@ -112,15 +111,15 @@ export function FormDialogEditResource({ open, setOpen, data, setData }: any) {
           autoFocus
           required
           margin="dense"
-          id="videoLink"
+          id="video_link"
           label="Video Link"
           type="text"
           fullWidth
           variant="standard"
-          defaultValue={data.videoLink}
+          defaultValue={data.video_link}
           onChange={handleChange}
-          error={errors.videoLink}
-          helperText={errors.videoLink ? errors.videoLink : ""}
+          error={errors.video_link}
+          helperText={errors.video_link ? errors.video_link : ""}
         />
 
         <div

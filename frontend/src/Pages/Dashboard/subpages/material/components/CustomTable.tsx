@@ -203,17 +203,17 @@ function Row(props: any) {
                       {typeof window !== "undefined" && row.video ? (
                         <a
                           href={constructObjectURL(row.video)}
-                          download={row.video.originalname}
+                          download={row.title + ".mp4"}
                         >
-                          {row.video.originalname}
+                          {row.title}
                         </a>
                       ) : (
                         <div>No data</div>
                       )}
                     </TableCell>
                     <TableCell align="left">
-                      {row.videoLink ? (
-                        <a href={row.videoLink} />
+                      {row.video_ink ? (
+                        <a href={row.video_link} />
                       ) : (
                         <div>No Link</div>
                       )}
@@ -223,9 +223,9 @@ function Row(props: any) {
                       {typeof window !== "undefined" && row.book ? (
                         <a
                           href={constructObjectURL(row.book)}
-                          download={row.book.originalname}
+                          download={row.title + ".pdf"}
                         >
-                          {row.book.originalname}
+                          {row.title}
                         </a>
                       ) : (
                         <div>No data</div>
@@ -235,23 +235,21 @@ function Row(props: any) {
                       {typeof window !== "undefined" && row.audio ? (
                         <a
                           href={constructObjectURL(row.audio)}
-                          download={row.audio.originalname}
+                          download={row.audio.title + ".mp3"}
                         >
-                          {row.audio.originalname}
+                          {row.title}
                         </a>
                       ) : (
                         <div>No data</div>
                       )}
                     </TableCell>
                     <TableCell align="left">
-                      {typeof window !== "undefined" &&
-                      typeof row.thumbnail ===
-                        typeof { buffer: { data: ArrayBuffer } } ? (
+                      {typeof window !== "undefined" && row.thumbnail ? (
                         <a
                           href={constructObjectURL(row.thumbnail)}
-                          download={row.thumbnail.originalname}
+                          download={row.thumbnail.title + ".jpg"}
                         >
-                          {row.thumbnail.originalname}
+                          {row.title}
                         </a>
                       ) : (
                         <div>No data</div>

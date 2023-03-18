@@ -1,9 +1,8 @@
 export function constructObjectURL(obj: any) {
+  console.log("obj: ", obj);
   try {
     return window.URL.createObjectURL(
-      new Blob([Uint8Array.from(obj.buffer.data).buffer], {
-        type: obj.mimetype,
-      })
+      new Blob([Uint8Array.from(obj.data.data).buffer])
     );
   } catch (e) {
     return "";

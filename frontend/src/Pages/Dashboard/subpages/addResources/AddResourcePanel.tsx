@@ -10,11 +10,11 @@ export function AddResourcePanel({ category }: any) {
   const [formData, setFormData] = React.useState({});
   const submitFrom = () => {
     console.log("data panel: ", { ...values, ...formData, category: category });
-    // materialProvider
-    //   .createMaterial({ ...values, ...formData } as any)
-    //   .then(() => {
-    //     refreshPage();
-    //   });
+    materialProvider
+      .createMaterial({ ...values, ...formData, category: category } as any)
+      .then(() => {
+        refreshPage();
+      });
   };
   const { values, errors, handleChange, handleSubmit } = useForm(
     submitFrom,
@@ -91,14 +91,14 @@ export function AddResourcePanel({ category }: any) {
           <TextField
             required
             margin="dense"
-            id="videoLink"
+            id="video_link"
             label="Video Link"
             type="text"
             style={{ width: "800px" }}
             variant="standard"
             onChange={handleChange}
-            error={errors.videoLink}
-            helperText={errors.videoLink ? errors.videoLink : ""}
+            error={errors.video_link}
+            helperText={errors.video_link ? errors.video_link : ""}
           />
         </div>
 

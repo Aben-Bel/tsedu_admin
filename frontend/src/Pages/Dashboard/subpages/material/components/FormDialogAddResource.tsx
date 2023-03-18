@@ -109,14 +109,14 @@ export function FormDialogAddResource({ open, setOpen }: any) {
           autoFocus
           required
           margin="dense"
-          id="videoLink"
+          id="video_link"
           label="Video Link"
           type="text"
           fullWidth
           variant="standard"
           onChange={handleChange}
-          error={errors.videoLink}
-          helperText={errors.videoLink ? errors.videoLink : ""}
+          error={errors.video_link}
+          helperText={errors.video_link ? errors.video_link : ""}
         />
 
         <div

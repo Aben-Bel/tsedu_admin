@@ -16,7 +16,7 @@ export function Resource() {
         display="flex"
         justifyItems={"flex-end"}
       >
-        <Button
+        {/* <Button
           sx={{ marginLeft: "auto" }}
           className="resourceBtn"
           variant="contained"
@@ -24,7 +24,7 @@ export function Resource() {
           onClick={handleClickAddResource}
         >
           Add Resources
-        </Button>
+        </Button> */}
       </Box>
       <CollapsibleTable></CollapsibleTable>
     </div>

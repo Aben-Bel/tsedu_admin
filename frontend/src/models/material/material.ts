@@ -9,5 +9,5 @@ export interface Material {
   book?: File;
   audio?: File;
   video?: File;
-  videoLink?: string;
+  video_link?: string;
 }

@@ -4,6 +4,21 @@ import { MaterialModel } from "../models/material/MaterialModel";
 import { getToken } from "../utils/getToken";
 import { API } from "./API-interface";
 
+// Define MaterialData interface
+interface MaterialData {
+  id: string;
+  language: string;
+  title: string;
+  description: string;
+  category: string;
+  type: string;
+  thumbnail?: string;
+  book?: string;
+  audio?: string;
+  video?: string;
+  video_link?: string;
+}
+
 export class axiosApiMaterial implements API {
   // private base_url = "http://localhost:4545/material";
   private base_url = "https://tsedu-backend.onrender.com/material";
@@ -18,8 +33,10 @@ export class axiosApiMaterial implements API {
       (item: Material) =>
         new MaterialModel({
           ...item,
+          // book: { ...item.book, mimetype: "application/pdf" } as File,
         })
     );
+    console.log("Results: ", materials);
     return Promise.resolve(materials);
   }
 
@@ -37,8 +54,8 @@ export class axiosApiMaterial implements API {
     if (material.category) bodyFormData.append("category", material.category);
     if (material.type) bodyFormData.append("type", material.type);
     if (material.video) bodyFormData.append("video", material.video);
-    if (material.videoLink)
-      bodyFormData.append("videoLink", material.videoLink);
+    if (material.video_link)
+      bodyFormData.append("video_link", material.video_link);
     if (material.thumbnail)
       bodyFormData.append("thumbnail", material.thumbnail);
     if (material.book) bodyFormData.append("book", material.book);
@@ -65,8 +82,8 @@ export class axiosApiMaterial implements API {
     if (material.category) bodyFormData.append("category", material.category);
     if (material.type) bodyFormData.append("type", material.type);
     if (material.video) bodyFormData.append("video", material.video);
-    if (material.videoLink)
-      bodyFormData.append("videoLink", material.videoLink);
+    if (material.video_link)
+      bodyFormData.append("video_link", material.video_link);
     if (material.thumbnail)
       bodyFormData.append("thumbnail", material.thumbnail);
     if (material.book) bodyFormData.append("book", material.book);

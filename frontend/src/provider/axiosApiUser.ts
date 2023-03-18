@@ -2,8 +2,8 @@ import axios from "axios";
 import { API } from "./API-interface";
 
 export class axiosApiUser implements API {
-  // private base_url = "http://localhost:4545/user";
-  private base_url = "https://tsedu-backend.onrender.com/user";
+  private base_url = "http://localhost:4545/user";
+  // private base_url = "https://tsedu-backend.onrender.com/user";
 
   async post(user: any): Promise<any> {
     try {

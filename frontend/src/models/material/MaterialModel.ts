@@ -11,7 +11,7 @@ export class MaterialModel implements Material {
   public book?: File | undefined;
   public audio?: File | undefined;
   public video?: File | undefined;
-  public videoLink?: string | undefined;
+  public video_link?: string | undefined;
 
   constructor(material: Material) {
     this.id = material.id;
@@ -24,6 +24,6 @@ export class MaterialModel implements Material {
     this.book = material.book;
     this.audio = material.audio;
     this.video = material.video;
-    this.videoLink = material.videoLink;
+    this.video_link = material.video_link;
   }
 }
