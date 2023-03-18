@@ -26,7 +26,7 @@ export class PGMaterialDataSource implements MaterialDataSource {
       book: item.book,
       audio: item.audio,
       video: item.video,
-      videoLink: item.videoLink
+      video_link: item.video_link
     }));
 
     return res[0];
@@ -45,7 +45,7 @@ export class PGMaterialDataSource implements MaterialDataSource {
 
   async create(material: Material): Promise<Material> {
     const dbResponse = await this.db.query(
-      `insert into ${DB_TABLE} (title, description, category, type, thumbnail, book, audio, video, videoLink) values ($1,$2,$3) `,
+      `insert into ${DB_TABLE} (title, description, category, type, thumbnail, book, audio, video, video_link) values ($1,$2,$3) `,
       [
         material.title,
         material.language,
@@ -56,7 +56,7 @@ export class PGMaterialDataSource implements MaterialDataSource {
         material.book,
         material.audio,
         material.video,
-        material.videoLink
+        material.video_link
       ]
     );
 
