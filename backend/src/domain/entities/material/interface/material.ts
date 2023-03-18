@@ -1,6 +1,6 @@
 export interface Material {
   id?: string;
-  language:string;
+  language: string;
   title: string;
   description: string;
   category: string;
@@ -9,5 +9,5 @@ export interface Material {
   book?: File;
   audio?: File;
   video?: File;
-  videoLink?: string;
+  video_link?: string;
 }

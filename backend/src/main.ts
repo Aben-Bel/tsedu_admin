@@ -30,10 +30,49 @@ import { RegistrationDatasourceImp } from './db/data-sources/memory/registration
 import RegistrationRouter from './presentation/routers/registration-router';
 import { CreateRegistrationUsecaseImp } from './domain/use-cases/registration/create-registration-usecase';
 import { GetStatRegistrationImpl } from './domain/use-cases/registration/get-stat-registration-usecase';
+import mysql from 'mysql';
+import { MySQLMaterialDataSource } from './db/data-sources/mysql/MySQLMaterialDataSource';
+
+import sequelize from 'sequelize/types/sequelize';
+
 (async () => {
-  const materialDB = new DB_Memory_Material();
+  async function getMySQL(): Promise<MySQLMaterialDataSource> {
+    const connection = mysql.createConnection({
+      host: process.env.host_db,
+      user: process.env.user_db,
+      password: process.env.password_db,
+      database: process.env.database_name
+    });
+
+    const pool = mysql.createPool({
+      host: process.env.host_db,
+      user: process.env.user_db,
+      password: process.env.password_db,
+      database: process.env.database_name,
+      waitForConnections: true,
+      connectionLimit: 10,
+      queueLimit: 0
+    });
+
+    try {
+      await connection.connect(function (err) {
+        if (err) {
+          console.error('error: ' + err.message);
+          throw new Error(err.message);
+        }
+
+        console.log('Connected to the MySQL server.');
+      });
+    } catch (e) {}
+
+    return new MySQLMaterialDataSource(pool);
+  }
+
+  // const materialDB = new DB_Memory_Material();
+  const materialDB = getMySQL();
   const materialRepository = new MaterialRepositoryImpl(
-    new MemoryMaterialDataSource(materialDB)
+    await materialDB
+    // new MemoryMaterialDataSource(materialDB)
   );
   const materialMiddleWare = MaterialRouter(
     new GetAllMaterials(materialRepository),

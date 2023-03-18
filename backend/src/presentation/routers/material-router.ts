@@ -28,7 +28,7 @@ export default function MaterialRouter(
         skip: parseInt(skip)
       });
       res.send(
-        materials.map((item) => ({
+        materials?.map((item) => ({
           ...item
         }))
       );
@@ -68,28 +68,43 @@ export default function MaterialRouter(
     async (req: Request, res: Response) => {
       try {
         const reqMaterial = { ...req.body };
-        const materialFile = req.files as {
-          [fileldname: string]: Express.Multer.File[];
+        const materialFiles = req.files as {
+          [fieldname: string]: Express.Multer.File[];
         };
-        if (materialFile) {
-          if (materialFile.thumbnail) {
-            reqMaterial.thumbnail = materialFile.thumbnail[0];
+
+        // Set file data on material object if file exists
+        if (materialFiles) {
+          if (materialFiles.thumbnail && materialFiles.thumbnail[0]) {
+            reqMaterial.thumbnail = {
+              data: materialFiles.thumbnail[0].buffer,
+              filename: materialFiles.thumbnail[0].originalname
+            };
           }
-          if (materialFile.book) {
-            reqMaterial.book = materialFile.book[0];
+          if (materialFiles.book && materialFiles.book[0]) {
+            reqMaterial.book = {
+              data: materialFiles.book[0].buffer,
+              filename: materialFiles.book[0].originalname
+            };
           }
-          if (materialFile.audio) {
-            reqMaterial.audio = materialFile.audio[0];
+          if (materialFiles.audio && materialFiles.audio[0]) {
+            reqMaterial.audio = {
+              data: materialFiles.audio[0].buffer,
+              filename: materialFiles.audio[0].originalname
+            };
           }
-          if (materialFile.video) {
-            reqMaterial.video = materialFile.video[0];
+          if (materialFiles.video && materialFiles.video[0]) {
+            reqMaterial.video = {
+              data: materialFiles.video[0].buffer,
+              filename: materialFiles.video[0].originalname
+            };
           }
         }
 
         const material = await createMaterialUseCase.execute(reqMaterial);
         res.statusCode = 201;
         res.json({ message: 'Created' });
-      } catch (err) {
+      } catch (err: any) {
+        console.log('Error saving data: ', err.message);
         res.status(500).send({ message: 'Error saving data' });
       }
     }
@@ -130,6 +145,7 @@ export default function MaterialRouter(
         res.statusCode = 201;
         res.json({ message: 'Updated', data: material });
       } catch (err) {
+        console.log('Error: ', err);
         res.status(500).send({ message: 'Error updating data' });
       }
     }
@@ -150,7 +166,8 @@ export default function MaterialRouter(
       const material = await deleteOneMaterialUseCase.execute(req.params.id);
       res.statusCode = 201;
       res.json({ message: 'Successfully deleted material' });
-    } catch (err) {
+    } catch (err: any) {
+      console.log('Error deleting at router: ', err.message);
       res.status(500).send({ message: 'Error deleting data' });
     }
   });

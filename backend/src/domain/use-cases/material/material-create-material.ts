@@ -7,7 +7,7 @@ export class CreateMaterial implements CreateMaterialUseCase {
   constructor(materialRepository: MaterialRepository) {
     this.materialRepository = materialRepository;
   }
-  async execute(material: Material): Promise<Material> {
+  async execute(material: Material): Promise<Material | null> {
     const result = await this.materialRepository.createMaterial(material);
     return result;
   }

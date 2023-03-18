@@ -11,7 +11,7 @@ export class GetAllMaterials implements GetAllMaterialsUseCase {
     this.materialRepository = materialRepository;
   }
 
-  async execute(query: QueryI): Promise<Material[]> {
+  async execute(query: QueryI): Promise<Material[] | null> {
     const result = await this.materialRepository.getMaterials(query);
     return result;
   }

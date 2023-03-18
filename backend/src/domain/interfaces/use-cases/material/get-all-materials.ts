@@ -5,5 +5,5 @@ export interface QueryI {
   skip: number;
 }
 export interface GetAllMaterialsUseCase {
-  execute(query: QueryI): Promise<Material[]>;
+  execute(query: QueryI): Promise<Material[] | null>;
 }
